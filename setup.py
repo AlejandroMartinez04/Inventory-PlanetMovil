@@ -9,7 +9,7 @@ exe = Executable(script="app.py", base="win32GUI")
 
 setup(
     name="Inventario PlanetMovil",
-    version="2.0",
+    version="4.0",
     description="Inventario y contabilidad para planet movil",
     author="Diego Martinez",
     author_email='diegomartinez1101@gmail.com',

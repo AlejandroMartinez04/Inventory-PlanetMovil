@@ -1,7 +1,7 @@
 from typing import Optional
 from datetime import datetime
 import PySide6.QtCore
-from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView
 from view.main_windows import ListProductForm
 from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product
 from model.sells import select_all_sells, insert_sell, select_sell_by_date
@@ -113,9 +113,13 @@ class ListProducWindows(QWidget, ListProductForm):
         self.ListProductTable.setColumnWidth(3, 110)
         self.ListProductTable.setColumnWidth(1, 90)
         self.ListProductTable.setColumnWidth(2, 110)
-        self.ListProductTable.setColumnWidth(0, 217)
+        # self.ListProductTable.setColumnWidth(0, 217)
         self.ListProductTable.setColumnWidth(4, 80)
         self.ListProductTable.verticalHeader().hide()
+        self.ListProductTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+        header = self.ListProductTable.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
     
     def populate_table(self, data):
 
@@ -130,11 +134,15 @@ class ListProducWindows(QWidget, ListProductForm):
         self.ListSellTable.setColumnCount(len(column_headers))
         self.ListSellTable.setHorizontalHeaderLabels(column_headers) 
         self.ListSellTable.setColumnWidth(3, 110)
-        self.ListSellTable.setColumnWidth(1, 228)
+        # self.ListSellTable.setColumnWidth(1, 228)
         self.ListSellTable.setColumnWidth(2, 70)
         self.ListSellTable.setColumnWidth(4, 110)
         self.ListSellTable.setColumnWidth(5, 110)
         self.ListSellTable.verticalHeader().hide()
+        self.ListSellTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+
+        header = self.ListSellTable.horizontalHeader()
+        header.setSectionResizeMode(1, QHeaderView.Stretch)
         
     def populate_table2(self, data):
         current_row_count = self.ListSellTable.rowCount()
