@@ -27,3 +27,22 @@ def create_connection():
 #         print("Error connecting to db: " + str(e))
 
 ### conection for render postgrest
+
+
+# import psycopg2
+# import pyodbc
+# from psycopg2 import OperationalError
+
+# def create_connection():
+#     try:
+#         server = 'planetmovilserversql.database.windows.net'
+#         database = 'bbdplanetmovil'
+#         username = 'adminsql'
+#         password = 'Di5970791'
+#         driver = '{ODBC Driver 17 for SQL Server}'
+
+#         conn = pyodbc.connect(f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver}')
+
+#         return conn
+#     except OperationalError as e:
+#         print("Error connecting to db: " + str(e))

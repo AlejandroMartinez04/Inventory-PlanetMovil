@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 from view.ganancias_window import gananciastWindow
 from model.sells import select_all_sells, select_sell_by_date
 from pys6_msgBoxes import msg_boxes
+from datetime import datetime
 
 class GananciasWindow(QWidget, gananciastWindow):
 
@@ -14,11 +15,14 @@ class GananciasWindow(QWidget, gananciastWindow):
         self.parent = parent
 
         self.calendarWidget.selectionChanged.connect(self.on_date_selected)
-        self.verGanButton.clicked.connect(self.on_date_selected)
+        self.verGanDiaButton.clicked.connect(self.on_date_selected)
         # self.cancelGanButton.clicked.connect(self.close)
+        self.verGanMenButton.clicked.connect(self.search_ganancia_mensual)
+        
 
         self.table_config2()
         self.populate_table2(select_all_sells())
+        self.populate_combobox()
 
         date = self.on_date_selected()
         self.search_sell_by_date(date)
@@ -89,3 +93,60 @@ class GananciasWindow(QWidget, gananciastWindow):
                 total += value
         total_format = self.agregar_punto_miles(total)
         return total_format
+
+    def populate_combobox(self):
+        cd_option = ("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
+        self.comboBoxMensual.addItems(cd_option)
+
+    def obtener_fecha_con_mes(self, numero_mes):
+        year = datetime.now().year
+
+        if 1 <= numero_mes <= 12:
+            fecha = f"{year}-{numero_mes:02d}"  # Utiliza :02d para asegurarte de que el mes tenga 2 dígitos
+            return fecha
+        else:
+            return None
+
+
+    def search_ganancia_mensual(self):
+        suma = 0
+        option_selected = self.comboBoxMensual.currentText()
+        if option_selected != '':
+            fecha_mes_numero = self.obtener_numero_mes(option_selected)
+            fecha_anio_mes = self.obtener_fecha_con_mes(fecha_mes_numero)
+            datos_ganancia_mensual = select_sell_by_date(fecha_anio_mes)
+            
+            for sublista in datos_ganancia_mensual:
+                # Verifica que la sublista tenga al menos 5 elementos antes de acceder a la posición 4
+                if len(sublista) >= 5:
+                    dato = sublista[4]
+                    value = int(dato.replace(",", ""))
+                    suma += value
+            total_format_ganancias = self.agregar_punto_miles(suma)
+            self.MensualLineEdit.setText(total_format_ganancias)
+            return total_format_ganancias
+        else:
+            print('Debe seleccionar un mes')
+            return None
+        
+            
+
+    def obtener_numero_mes(self, mes):
+        meses = {
+            'Enero': 1,
+            'Febrero': 2,
+            'Marzo': 3,
+            'Abril': 4,
+            'Mayo': 5,
+            'Junio': 6,
+            'Julio': 7,
+            'Agosto': 8,
+            'Septiembre': 9,
+            'Octubre': 10,
+            'Noviembre': 11,
+            'Diciembre': 12
+        }
+        if mes in meses:
+            return meses[mes]
+        else:
+            return None
