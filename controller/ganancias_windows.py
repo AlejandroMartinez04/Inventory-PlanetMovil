@@ -126,7 +126,8 @@ class GananciasWindow(QWidget, gananciastWindow):
             self.MensualLineEdit.setText(total_format_ganancias)
             return total_format_ganancias
         else:
-            print('Debe seleccionar un mes')
+            msg_boxes.warning_msg_box('Aviso', 'Debe seleccionar un mes')
+            # print('Debe seleccionar un mes')
             return None
         
             
