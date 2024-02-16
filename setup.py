@@ -14,7 +14,12 @@ setup(
     author="Diego Martinez",
     author_email='diegomartinez1101@gmail.com',
     options={'build_exe': {'include_files': files}},
-    executables=[exe]
+
+    # executables=[Executable("app.py")],
+    # packages=["view", "model", "assets", "uifiles", "controller", "pys6_msgBoxes"],
+
+    executables=[exe],
+    packages=['assets','databaseProducts.db','pys6_msgBoxes','credentials.txt']
 )
 
 # python setup.py build_exe --zip-include-packages=encodings,PySide6 -----COMANDO PARA CREAR .EXE

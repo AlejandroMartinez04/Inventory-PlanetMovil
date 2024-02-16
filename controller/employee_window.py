@@ -3,7 +3,7 @@ from datetime import datetime
 import PySide6.QtCore
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView, QMainWindow
-from view.main_windows import ListProductForm
+from view.employee_window import ListProductFormEmployee
 from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product
 from model.sells import select_all_sells, insert_sell, select_sell_by_date
 from pys6_msgBoxes import msg_boxes
@@ -15,15 +15,12 @@ from pyzbar.pyzbar import decode
 from pyzbar import pyzbar
 import pygame
 
-class ListProducWindows(QWidget, ListProductForm):
+class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
 
     def __init__(self):
         super().__init__()
         
         self.setupUi(self)
-        self.agregarButton.clicked.connect(self.open_new_product_windows)
-        self.editarButton.clicked.connect(self.open_edit_product_window)
-        self.gananciasButton.clicked.connect(self.open_ganancias_window)
         self.ListProductTable.cellClicked.connect(self.select_row)
         self.ListSellTable.cellClicked.connect(self.select_row_table2)
         self.removecartButton.clicked.connect(self.eliminar_fila_seleccionada)
@@ -32,15 +29,20 @@ class ListProducWindows(QWidget, ListProductForm):
         self.populate_table(select_all_products())
         self.searchButton.clicked.connect(self.search_any)
         self.inicioButton.clicked.connect(lambda:self.populate_table(select_all_products()))
-        self.eliminarButton.clicked.connect(self.delete_product_windows)
         self.addcartButton.clicked.connect(self.agregar_carrito_table_click)
         self.sellButton.clicked.connect(self.do_sell)
         self.clearButton.clicked.connect(self.clean_table_sells)
         self.lineEditSearch.returnPressed.connect(self.searchButton.click)
         self.escanearButton.clicked.connect(self.scanner)
-        self.pushButton.clicked.connect(self.close)
+        self.salirButton.clicked.connect(self.close)
 
         self.sellButton.setDefault(True)
+
+
+    def abrir_login(self):
+        from controller.login_window import login_window
+        window = login_window()
+        window.show()
 
     def keyPressEvent(self, event):
          condition = self.set_condition_met()
@@ -63,49 +65,7 @@ class ListProducWindows(QWidget, ListProductForm):
 
     def refresh_table_from_child_win(self):
         data = select_all_products()
-        self.populate_table(data)
-
-    def open_new_product_windows(self):
-        from controller.new_product_window import NewProductWindow
-        window = NewProductWindow(self)
-        window.show()
-
-    def open_edit_product_window(self): 
-        from controller.edit_product_window import EditProductWindow
-        selected_row = self.ListProductTable.selectedItems()
-        if selected_row:
-            valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
-            if valor_ingresado == '0827':
-                product_id = int(selected_row[4].text())
-                print(product_id)
-                window = EditProductWindow(self, product_id)
-                window.show()
-            else:
-                msg_boxes.error_msg_box('Error', 'Contraseña no coincide')
-                print("no Ingreso Dato")
-        self.ListProductTable.clearSelection()
-                    
-       
-    def open_ganancias_window(self):
-        from controller.ganancias_windows import GananciasWindow
-        window = GananciasWindow(self)
-        window.show()
-
-    def delete_product_windows(self):
-        selected_row = self.ListProductTable.selectedItems()
-        if selected_row:
-            valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
-            if valor_ingresado == '0827':
-                product_id = int(selected_row[4].text())
-                row = selected_row[0].row()
-                if delete_product(product_id):
-                    self.ListProductTable.removeRow(row)
-                    msg_boxes.correct_msg_box('Correcto!','Producto eliminado con exito')
-            else:
-                msg_boxes.error_msg_box('Error', 'Contraseña no coincide')
-        else:
-            msg_boxes.warning_msg_box('Error', 'Seleccione el producto a eliminar del INVENTARIO')
-        self.records_qty()          
+        self.populate_table(data)     
 
 
     def table_config(self):

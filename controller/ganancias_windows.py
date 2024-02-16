@@ -120,7 +120,8 @@ class GananciasWindow(QWidget, gananciastWindow):
                 # Verifica que la sublista tenga al menos 5 elementos antes de acceder a la posición 4
                 if len(sublista) >= 5:
                     dato = sublista[4]
-                    value = int(dato.replace(",", ""))
+                    dato_str = str(dato)
+                    value = int(dato_str.replace(",", ""))
                     suma += value
             total_format_ganancias = self.agregar_punto_miles(suma)
             self.MensualLineEdit.setText(total_format_ganancias)

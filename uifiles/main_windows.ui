@@ -236,6 +236,82 @@ QPushButton:pressed
       <number>350</number>
      </property>
      <item>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <widget class="QPushButton" name="gananciasButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../assets/newicons/Ganancias.png</normaloff>../assets/newicons/Ganancias.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>VER GANANCIAS</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
@@ -326,10 +402,7 @@ QPushButton:pressed
         <enum>QLayout::SetFixedSize</enum>
        </property>
        <item>
-        <widget class="QPushButton" name="gananciasButton">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
+        <widget class="QPushButton" name="pushButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -351,15 +424,12 @@ QPushButton:pressed
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
-         </property>
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../assets/newicons/Ganancias.png</normaloff>../assets/newicons/Ganancias.png</iconset>
+           <normaloff>../assets/newicons/icons8-salida-48.png</normaloff>../assets/newicons/icons8-salida-48.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -367,19 +437,13 @@ QPushButton:pressed
            <height>50</height>
           </size>
          </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
-         <property name="default">
-          <bool>false</bool>
-         </property>
          <property name="flat">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="label_13">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -390,10 +454,7 @@ QPushButton:pressed
           <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>VER GANANCIAS</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>   SALIR</string>
          </property>
         </widget>
        </item>
