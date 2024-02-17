@@ -25,25 +25,30 @@ class login_window(QWidget, FormLogin):
 
         if username == "" or password == "":
             msg_boxes.error_msg_box('Aviso!','El campo usuario y contraseña son obligatorios')
-            
         else:
             persona = self.select_person_by_id(username)
-            ## solucionar error cuando no existe el usuario
-            user = persona[0]
-            pw = persona[1]
-            type = persona[2]
-            print(persona)
+            if persona is not None and len(persona) > 0:
+                user = persona[0]
+                pw = persona[1]
+                type = persona[2]
+                print(persona)
 
-            if username == user and password == pw and type == 'empleado':
-                self.close()
-                self.open_employee_view() 
-            elif username == user and password == pw and type == 'admin':
-                self.close()
-                self.open_admin_view()    
-            else: 
-                msg_boxes.error_msg_box('Error!','Credenciales incorrectas')
+                if username == user and password == pw and type == 'empleado':
+                    self.close()
+                    self.open_employee_view() 
+                elif username == user and password == pw and type == 'admin':
+                    self.close()
+                    self.open_admin_view()    
+                else: 
+                    msg_boxes.error_msg_box('Error!','Credenciales incorrectas')
+                    self.clean_inputs()
+                    self.set_focus_on_line_edit()
+            else:
+                msg_boxes.error_msg_box('Error!','Usuario no existente')
                 self.clean_inputs()
                 self.set_focus_on_line_edit()
+
+                
                 
         
     def set_focus_on_line_edit(self):
