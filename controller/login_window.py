@@ -12,6 +12,7 @@ class login_window(QWidget, FormLogin):
         super().__init__()
 
         self.setupUi(self)
+        self.set_focus_on_line_edit()
         self.enviarBtn.clicked.connect(self.check_input)
         self.cancelarBtn.clicked.connect(self.close)
         
@@ -46,6 +47,10 @@ class login_window(QWidget, FormLogin):
 
         if errors_count == 0:
             return True
+        
+    def set_focus_on_line_edit(self):
+        # Establecer el foco en el QLineEdit
+        self.userLine.setFocus()
 
     def select_person_by_id(self, id):
         data = select_by_id(id)
