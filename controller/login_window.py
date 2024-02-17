@@ -12,15 +12,15 @@ class login_window(QWidget, FormLogin):
         super().__init__()
 
         self.setupUi(self)
-        self.btnEnviar.clicked.connect(self.check_input)
-        self.btnCancelar.clicked.connect(self.close)
+        self.enviarBtn.clicked.connect(self.check_input)
+        self.cancelarBtn.clicked.connect(self.close)
         
-        self.userLineEdit.returnPressed.connect(self.check_input)
-        self.passLineEdit.returnPressed.connect(self.check_input)
+        self.userLine.returnPressed.connect(self.check_input)
+        self.pwLine.returnPressed.connect(self.check_input)
 
     def check_input(self):
-        username = self.userLineEdit.text()
-        password = self.passLineEdit.text()
+        username = self.userLine.text()
+        password = self.pwLine.text()
 
         errors_count = 0
 
