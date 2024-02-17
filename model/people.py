@@ -11,7 +11,7 @@ def select_by_id(id_persona):
         persona = cur.fetchone()
         return persona
     except Error as e:
-        print("Error selecting by persona:" + str(e))
+        print("Error selecting persona by id:" + str(e))
     finally:
         if conn:
             cur.close()

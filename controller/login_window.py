@@ -23,33 +23,30 @@ class login_window(QWidget, FormLogin):
         username = self.userLine.text()
         password = self.pwLine.text()
 
-        errors_count = 0
-
         if username == "" or password == "":
             msg_boxes.error_msg_box('Aviso!','El campo usuario y contraseña son obligatorios')
-            errors_count += 1 
+            
+        else:
+            persona = self.select_person_by_id(username)
+            ## solucionar error cuando no existe el usuario
+            user = persona[0]
+            pw = persona[1]
+            type = persona[2]
+            print(persona)
 
-        persona = self.select_person_by_id(username)
-        # print(persona)
-        user = persona[0]
-        pw = persona[1]
-        type = persona[2]
-
-        if username == user and password == pw and type == 'empleado':
-            self.close()
-            self.open_employee_view() 
-        elif username == user and password == pw and type == 'admin':
-            self.close()
-            self.open_admin_view()    
-        else: 
-            msg_boxes.error_msg_box('Error!','Credenciales incorrectas')
-            self.clean_inputs()
-
-        if errors_count == 0:
-            return True
+            if username == user and password == pw and type == 'empleado':
+                self.close()
+                self.open_employee_view() 
+            elif username == user and password == pw and type == 'admin':
+                self.close()
+                self.open_admin_view()    
+            else: 
+                msg_boxes.error_msg_box('Error!','Credenciales incorrectas')
+                self.clean_inputs()
+                self.set_focus_on_line_edit()
+                
         
     def set_focus_on_line_edit(self):
-        # Establecer el foco en el QLineEdit
         self.userLine.setFocus()
 
     def select_person_by_id(self, id):
@@ -57,8 +54,8 @@ class login_window(QWidget, FormLogin):
         return data
 
     def clean_inputs(self):
-        self.userLineEdit.clear()
-        self.passLineEdit.clear()
+        self.userLine.clear()
+        self.pwLine.clear()
 
     def open_admin_view(self):
         from controller.main_window import ListProducWindows
