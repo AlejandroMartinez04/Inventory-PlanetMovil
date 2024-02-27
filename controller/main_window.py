@@ -4,7 +4,7 @@ import PySide6.QtCore
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView, QMainWindow
 from view.main_windows import ListProductForm
-from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product
+from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product, select_product_by_id_search
 from model.sells import select_all_sells, insert_sell, select_sell_by_date
 from pys6_msgBoxes import msg_boxes
 from pys6_msgBoxes.input_box import input_msg_box
@@ -109,7 +109,7 @@ class ListProducWindows(QWidget, ListProductForm):
 
 
     def table_config(self):
-        column_headers = ("Nombre", "Cantidad", "Precio ingreso", "Precio", "Codigo")
+        column_headers = ("Nombre", "Cantidad", "Precio ingreso", "Precio", "Codigo", "Proveedor")
         self.ListProductTable.setColumnCount(len(column_headers))
         self.ListProductTable.setHorizontalHeaderLabels(column_headers)
         self.ListProductTable.setColumnWidth(3, 110)
@@ -117,6 +117,7 @@ class ListProducWindows(QWidget, ListProductForm):
         self.ListProductTable.setColumnWidth(2, 110)
         # self.ListProductTable.setColumnWidth(0, 217)
         self.ListProductTable.setColumnWidth(4, 80)
+        self.ListProductTable.setColumnWidth(5, 80)
         self.ListProductTable.verticalHeader().hide()
         self.ListProductTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
 
@@ -124,7 +125,6 @@ class ListProducWindows(QWidget, ListProductForm):
         header.setSectionResizeMode(0, QHeaderView.Stretch)
     
     def populate_table(self, data):
-
         self.ListProductTable.setRowCount(len(data))
         for (index_row, row) in enumerate(data):
             for(index_cell, cell) in enumerate(row):
@@ -165,7 +165,7 @@ class ListProducWindows(QWidget, ListProductForm):
         return data
     
     def search_product_by_barcode(self, Codigo_barras):
-        data = select_product_by_id(Codigo_barras)
+        data = select_product_by_id_search(Codigo_barras)
         self.populate_table(data)
 
     def search_any(self):
