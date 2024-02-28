@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>405</width>
-    <height>414</height>
+    <height>460</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -75,7 +75,7 @@
     <rect>
      <x>30</x>
      <y>122</y>
-     <width>61</width>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -135,7 +135,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>350</y>
+     <y>410</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -161,7 +161,7 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>350</y>
+     <y>410</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -205,6 +205,35 @@
      <x>30</x>
      <y>220</y>
      <width>100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string>font: 700 11pt &quot;Segoe UI&quot;;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>330</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string>font: 700 11pt &quot;Segoe UI&quot;;</string>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Proveedor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="providerLineEdit">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>360</y>
+     <width>131</width>
      <height>22</height>
     </rect>
    </property>

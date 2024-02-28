@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'edit_product_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.5.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -22,9 +22,7 @@ class EditProductForm(object):
     def setupUi(self, editProductWindow):
         if not editProductWindow.objectName():
             editProductWindow.setObjectName(u"editProductWindow")
-        editProductWindow.resize(405, 488)
-        editProductWindow.setMinimumSize(QSize(405, 488))
-        editProductWindow.setMaximumSize(QSize(405, 488))
+        editProductWindow.resize(405, 504)
         self.EditarProductolabel = QLabel(editProductWindow)
         self.EditarProductolabel.setObjectName(u"EditarProductolabel")
         self.EditarProductolabel.setGeometry(QRect(10, 10, 381, 20))
@@ -38,23 +36,12 @@ class EditProductForm(object):
         self.titleLineEdit.setObjectName(u"titleLineEdit")
         self.titleLineEdit.setGeometry(QRect(30, 80, 351, 22))
         self.titleLineEdit.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-
-        self.amountSpinBox = QSpinBox(editProductWindow)
-        self.amountSpinBox.setObjectName(u"amountSpinBox")
-        self.amountSpinBox.setGeometry(QRect(30, 140, 51, 22))
-        self.amountSpinBox.setMaximum(1000)
-
-        self.priceSaleLineEdit_2 = QLineEdit(editProductWindow)
-        self.priceSaleLineEdit_2.setObjectName(u"priceSaleLineEdit_2")
-        self.priceSaleLineEdit_2.setGeometry(QRect(30, 210, 111, 22))
-
         self.label_3 = QLabel(editProductWindow)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(30, 110, 71, 21))
         self.priceSaleLineEdit = QLineEdit(editProductWindow)
         self.priceSaleLineEdit.setObjectName(u"priceSaleLineEdit")
         self.priceSaleLineEdit.setGeometry(QRect(30, 280, 111, 22))
-
         self.label_5 = QLabel(editProductWindow)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(30, 250, 101, 21))
@@ -62,14 +49,15 @@ class EditProductForm(object):
         self.barcodeLineEdit.setObjectName(u"barcodeLineEdit")
         self.barcodeLineEdit.setGeometry(QRect(30, 350, 200, 22))
         self.barcodeLineEdit.setReadOnly(True)
-        
         self.label_6 = QLabel(editProductWindow)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(30, 320, 101, 21))
-        
+        self.amountSpinBox = QSpinBox(editProductWindow)
+        self.amountSpinBox.setObjectName(u"amountSpinBox")
+        self.amountSpinBox.setGeometry(QRect(30, 140, 51, 22))
         self.editProductButton = QPushButton(editProductWindow)
         self.editProductButton.setObjectName(u"editProductButton")
-        self.editProductButton.setGeometry(QRect(210, 420, 111, 31))
+        self.editProductButton.setGeometry(QRect(210, 460, 111, 31))
         self.editProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.editProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.editProductButton.setText(u"GUARDAR")
@@ -79,7 +67,7 @@ class EditProductForm(object):
         self.editProductButton.setFlat(False)
         self.cancelProductButton = QPushButton(editProductWindow)
         self.cancelProductButton.setObjectName(u"cancelProductButton")
-        self.cancelProductButton.setGeometry(QRect(90, 420, 111, 31))
+        self.cancelProductButton.setGeometry(QRect(90, 460, 111, 31))
         self.cancelProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.cancelProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.cancelProductButton.setText(u"CANCELAR")
@@ -87,10 +75,18 @@ class EditProductForm(object):
         icon1.addFile(u"./assets/newicons/icons8-cancelar-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.cancelProductButton.setIcon(icon1)
         self.cancelProductButton.setFlat(False)
-        
+        self.priceSaleLineEdit_2 = QLineEdit(editProductWindow)
+        self.priceSaleLineEdit_2.setObjectName(u"priceSaleLineEdit_2")
+        self.priceSaleLineEdit_2.setGeometry(QRect(30, 210, 111, 22))
         self.label_7 = QLabel(editProductWindow)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(30, 180, 101, 21))
+        self.providerLineEdit = QLineEdit(editProductWindow)
+        self.providerLineEdit.setObjectName(u"providerLineEdit")
+        self.providerLineEdit.setGeometry(QRect(30, 410, 200, 22))
+        self.label_8 = QLabel(editProductWindow)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(30, 380, 101, 21))
 
         self.retranslateUi(editProductWindow)
 
@@ -113,5 +109,8 @@ class EditProductForm(object):
         self.priceSaleLineEdit_2.setStyleSheet(QCoreApplication.translate("editProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
         self.label_7.setStyleSheet(QCoreApplication.translate("editProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
         self.label_7.setText(QCoreApplication.translate("editProductWindow", u"<html><head/><body><p>Precio ingreso</p><p><br/></p></body></html>", None))
+        self.providerLineEdit.setStyleSheet(QCoreApplication.translate("editProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
+        self.label_8.setStyleSheet(QCoreApplication.translate("editProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
+        self.label_8.setText(QCoreApplication.translate("editProductWindow", u"<html><head/><body><p>Proveedor</p></body></html>", None))
     # retranslateUi
 

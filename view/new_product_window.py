@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'new_product_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.5.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -22,13 +22,12 @@ class NewProductForm(object):
     def setupUi(self, newProductWindow):
         if not newProductWindow.objectName():
             newProductWindow.setObjectName(u"newProductWindow")
-        newProductWindow.resize(405, 414)
+        newProductWindow.resize(405, 460)
+        newProductWindow.setMinimumSize(QSize(405, 400))
         newProductWindow.setTabletTracking(False)
-        newProductWindow.setMinimumSize(QSize(405, 414))
-        newProductWindow.setMaximumSize(QSize(405, 414))
         self.label = QLabel(newProductWindow)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(10, 10, 381, 20))
+        self.label.setGeometry(QRect(10, 10, 381, 31))
         self.label.setFrameShape(QFrame.Box)
         self.label_2 = QLabel(newProductWindow)
         self.label_2.setObjectName(u"label_2")
@@ -48,18 +47,23 @@ class NewProductForm(object):
 
         self.label_3 = QLabel(newProductWindow)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(30, 122, 61, 21))
+        self.label_3.setGeometry(QRect(30, 122, 71, 21))
 
         self.priceSaleLineEdit = QLineEdit(newProductWindow)
         self.priceSaleLineEdit.setObjectName(u"priceSaleLineEdit")
         self.priceSaleLineEdit.setGeometry(QRect(30, 290, 100, 22))
-        
+
         self.label_5 = QLabel(newProductWindow)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(30, 260, 91, 21))
+
+        self.providerLineEdit = QLineEdit(newProductWindow)
+        self.providerLineEdit.setObjectName(u"providerLineEdit")
+        self.providerLineEdit.setGeometry(QRect(30, 360, 131, 22))
+        
         self.AddProductButton = QPushButton(newProductWindow)
         self.AddProductButton.setObjectName(u"AddProductButton")
-        self.AddProductButton.setGeometry(QRect(200, 350, 111, 31))
+        self.AddProductButton.setGeometry(QRect(200, 410, 111, 31))
         self.AddProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.AddProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.AddProductButton.setText(u"GUARDAR")
@@ -69,7 +73,7 @@ class NewProductForm(object):
         self.AddProductButton.setFlat(False)
         self.cancelProductButton = QPushButton(newProductWindow)
         self.cancelProductButton.setObjectName(u"cancelProductButton")
-        self.cancelProductButton.setGeometry(QRect(80, 350, 111, 31))
+        self.cancelProductButton.setGeometry(QRect(80, 410, 111, 31))
         self.cancelProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.cancelProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.cancelProductButton.setText(u"CANCELAR")
@@ -80,6 +84,10 @@ class NewProductForm(object):
         self.label_7 = QLabel(newProductWindow)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(30, 190, 101, 21))
+        
+        self.label_6 = QLabel(newProductWindow)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(30, 330, 91, 21))
         
 
         self.retranslateUi(newProductWindow)
@@ -103,5 +111,8 @@ class NewProductForm(object):
         self.label_7.setStyleSheet(QCoreApplication.translate("newProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
         self.label_7.setText(QCoreApplication.translate("newProductWindow", u"<html><head/><body><p>Precio ingreso<br/></p></body></html>", None))
         self.priceSaleLineEdit_2.setStyleSheet(QCoreApplication.translate("newProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
+        self.label_6.setStyleSheet(QCoreApplication.translate("newProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
+        self.label_6.setText(QCoreApplication.translate("newProductWindow", u"<html><head/><body><p>Proveedor</p></body></html>", None))
+        self.providerLineEdit.setStyleSheet(QCoreApplication.translate("newProductWindow", u"font: 700 11pt \"Segoe UI\";", None))
     # retranslateUi
 

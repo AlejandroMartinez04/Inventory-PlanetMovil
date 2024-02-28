@@ -3,7 +3,7 @@ import PySide6.QtCore
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Qt
 from view.edit_product_window import EditProductForm
-from model.products import select_product_by_id, update_product
+from model.products import select_product_by_id, update_product, select_product_by_id_search
 from pys6_msgBoxes import msg_boxes
 
 class EditProductWindow(QWidget, EditProductForm):
@@ -21,15 +21,17 @@ class EditProductWindow(QWidget, EditProductForm):
         self.titleLineEdit.returnPressed.connect(self.editProductButton.click)
         self.priceSaleLineEdit_2.returnPressed.connect(self.editProductButton.click)
         self.priceSaleLineEdit.returnPressed.connect(self.editProductButton.click)
+        self.providerLineEdit.returnPressed.connect(self.editProductButton.click)
 
     def populate_inputs(self):
-        data = select_product_by_id(self.codigo_barras)
+        data = select_product_by_id_search(self.codigo_barras)
         data_normal = data[0]
         self.titleLineEdit.setText(str(data_normal[0]))
         self.amountSpinBox.setValue(int(data_normal[1]))
         self.priceSaleLineEdit_2.setText(str(data_normal[2]))
         self.priceSaleLineEdit.setText(str(data_normal[3]))
         self.barcodeLineEdit.setText(str(data_normal[4]))
+        self.providerLineEdit.setText(str(data_normal[5]))
 
     def check_inputs(self):
         name = self.titleLineEdit.text()
@@ -73,8 +75,9 @@ class EditProductWindow(QWidget, EditProductForm):
         priceOut = self.priceSaleLineEdit.text()
         priceOut_without_format = int(priceOut.replace(",", ""))
         priceOut_format = self.agregar_punto_miles(priceOut_without_format)
+        provider = self.providerLineEdit.text()
 
-        data = [name, amount, priceInt_format, priceOut_format]
+        data = [name, amount, priceInt_format, priceOut_format, provider]
 
         if update_product(self.codigo_barras, data) and self.check_inputs():
             msg_boxes.correct_msg_box('Correcto!','Producto actualizado con exito')

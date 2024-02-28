@@ -4,8 +4,8 @@ from .connection import create_connection
 
 def insert_product(data):
     conn = create_connection()
-    sql = """ INSERT INTO products (Nombre, Cantidad, Precio_ingreso, Precio, Ganancia) 
-    VALUES(?,?,?,?,?)"""
+    sql = """ INSERT INTO products (Nombre, Cantidad, Precio_ingreso, Precio, Ganancia, Proveedor) 
+    VALUES(?,?,?,?,?,?)"""
 
     try:
         cur = conn.cursor()
@@ -26,7 +26,8 @@ def update_product(Id_producto, data):
                                 Nombre = ?, 
                                 Cantidad = ?, 
                                 Precio_ingreso = ?,
-                                Precio = ? 
+                                Precio = ?,
+                                Proveedor = ? 
                 WHERE Id_producto = {Id_producto}"""
 
     try:
