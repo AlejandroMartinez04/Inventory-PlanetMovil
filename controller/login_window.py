@@ -31,7 +31,7 @@ class login_window(QWidget, FormLogin):
                 user = persona[0]
                 pw = persona[1]
                 type = persona[2]
-                print(persona)
+                # print(persona)
 
                 if username == user and password == pw and type == 'empleado':
                     self.close()

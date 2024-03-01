@@ -19,7 +19,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
 
     def __init__(self):
         super().__init__()
-        
+
         self.setupUi(self)
         self.ListProductTable.cellClicked.connect(self.select_row)
         self.ListSellTable.cellClicked.connect(self.select_row_table2)
@@ -34,15 +34,14 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         self.clearButton.clicked.connect(self.clean_table_sells)
         self.lineEditSearch.returnPressed.connect(self.searchButton.click)
         self.escanearButton.clicked.connect(self.scanner)
-        self.salirButton.clicked.connect(self.close)
-
+        self.salirButton.clicked.connect(self.salir)
+        
         self.sellButton.setDefault(True)
 
-
-    def abrir_login(self):
-        from controller.login_window import login_window
-        window = login_window()
-        window.show()
+    def salir(self):
+        respuesta = QMessageBox.question(self, "Salir", "¿Seguro que deseas salir?", QMessageBox.Yes | QMessageBox.No)
+        if respuesta == QMessageBox.Yes:
+            self.close()
 
     def keyPressEvent(self, event):
          condition = self.set_condition_met()
@@ -310,18 +309,18 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             
         return product_count
                 
+
     def scanner(self):
         cap = cv2.VideoCapture(0)
-
         cap.set(3, 640)
         cap.set(4, 480)
 
-        with open('./credentials.txt') as f:
-            mydatalist=f.read().splitlines()
+        # with open('./credentials.txt') as f:
+        #     mydatalist = f.read().splitlines()
 
-        print(mydatalist)
+        # print(mydatalist)
 
-        scanning_enabled = True  # Variable para habilitar o deshabilitar el escaneo
+        scanning_enabled = True
         change_code_key = ord('c')
 
         def reproducir_sonido():
@@ -329,63 +328,58 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             sonido = pygame.mixer.Sound('./assets/beep.wav')
             sonido.play()
 
-
         while True:
-            success,img=cap.read()
+            success, img = cap.read()
+
             for barcode in decode(img):
-                
                 mydata = barcode.data.decode('utf-8')
-                # print(mydata)
 
-                if mydata in mydatalist:
-                    myoutput = 'Autorizado'
-                    color = (0,255,0)
-                    reproducir_sonido()
-                    datos = self.search_product_by_barcode_scanner(mydata)
-                    qty_stock = datos[0]
-                    qty_stock1 = qty_stock[1]
-                    
-                    qty_sell = self.count_products(mydata)
 
-                    print(mydata, qty_sell)
+                myoutput = 'Autorizado'
+                color = (0, 255, 0)
+                reproducir_sonido()
+                datos = self.search_product_by_barcode_scanner(mydata)  
+                qty_stock = datos[0]
+                qty_stock1 = qty_stock[1]
 
-                    if qty_stock1 > qty_sell:
-                        self.agregar_carrito_table_scanner(datos)
-                    else:
-                        msg_boxes.warning_msg_box('Aviso!','No hay mas productos en stock')
+                qty_sell = self.count_products(mydata)  
+
+                print(mydata, qty_sell)
+
+                if qty_stock1 > qty_sell:
+                    self.agregar_carrito_table_scanner(datos)  
                 else:
-                    myoutput = 'No autorizado'
-                    color = (0,0,255)
+                    msg_boxes.warning_msg_box('Aviso!', 'No hay más productos en stock')
 
-                pts = np.array([barcode.polygon], np.int32)
+                # myoutput = 'No autorizado'
+                # color = (0, 0, 255)
 
-                pts = pts.reshape((-1,1,2))
-
-                cv2.polylines(img,
-                            [pts],
-                            True,
-                            color,
-                            5)
+                pts = barcode.polygon
+                if len(pts) == 4:
+                    pts = np.array(pts, dtype=int)
+                    pts = pts.reshape((-1, 1, 2))
+                    cv2.polylines(img, [pts], True, color, 5)
 
                 pts2 = barcode.rect
 
-                cv2.putText(img,
-                            myoutput,
-                            (pts2[0],pts2[1]),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.9,
-                            color,
-                            3)
+                cv2.putText(img, myoutput, (pts2[0], pts2[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 3)
 
-            cv2.imshow('Result',img)
+            cv2.imshow('Result', img)
 
             key = cv2.waitKey(800)
-                
-            if key == change_code_key:  # Si se presiona la tecla de cambio de código
-                scanning_enabled = not scanning_enabled  # Invierte el estado de escaneo
 
-            if key == 27:  # Si se presiona la tecla ESC, sal del bucle principal
+            if key == change_code_key:
+                scanning_enabled = not scanning_enabled
+
+            if key == 27:
                 break
-    
+
         cap.release()
         cv2.destroyAllWindows()
+
+# Asegúrate de definir las funciones search_product_by_barcode_scanner, count_products y agregar_carrito_table_scanner
+
+
+
+
+        
