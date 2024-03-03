@@ -515,11 +515,19 @@ QPushButton:pressed
          <height>100</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>22</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: 700 22pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="frame">
         <bool>false</bool>

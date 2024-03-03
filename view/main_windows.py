@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_windows.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.2
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class ListProductForm(object):
         if not ListProductForm.objectName():
             ListProductForm.setObjectName(u"ListProductForm")
         ListProductForm.resize(1384, 703)
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ListProductForm.sizePolicy().hasHeightForWidth())
@@ -52,7 +52,7 @@ class ListProductForm(object):
         self.horizontalLayout_2.setContentsMargins(0, 15, 0, 15)
         self.label = QLabel(ListProductForm)
         self.label.setObjectName(u"label")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
@@ -63,7 +63,7 @@ class ListProductForm(object):
 
         self.lineEditSearch = QLineEdit(ListProductForm)
         self.lineEditSearch.setObjectName(u"lineEditSearch")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.lineEditSearch.sizePolicy().hasHeightForWidth())
@@ -75,7 +75,7 @@ class ListProductForm(object):
 
         self.searchButton = QPushButton(ListProductForm)
         self.searchButton.setObjectName(u"searchButton")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.searchButton.sizePolicy().hasHeightForWidth())
@@ -251,17 +251,16 @@ class ListProductForm(object):
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.frame_2 = QFrame(ListProductForm)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-
-        self.horizontalLayout_5.addWidget(self.frame_2)
-
         self.label_9 = QLabel(ListProductForm)
         self.label_9.setObjectName(u"label_9")
         sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
         self.label_9.setSizePolicy(sizePolicy)
+        font = QFont()
+        font.setFamilies([u"Segoe UI"])
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        self.label_9.setFont(font)
         self.label_9.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
 
         self.horizontalLayout_5.addWidget(self.label_9)
@@ -269,11 +268,14 @@ class ListProductForm(object):
         self.lineEditSell = QLineEdit(ListProductForm)
         self.lineEditSell.setObjectName(u"lineEditSell")
         self.lineEditSell.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.lineEditSell.sizePolicy().hasHeightForWidth())
-        self.lineEditSell.setSizePolicy(sizePolicy)
-        self.lineEditSell.setMaximumSize(QSize(150, 30))
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.lineEditSell.sizePolicy().hasHeightForWidth())
+        self.lineEditSell.setSizePolicy(sizePolicy4)
+        self.lineEditSell.setMaximumSize(QSize(500, 100))
         self.lineEditSell.setFocusPolicy(Qt.NoFocus)
-        self.lineEditSell.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
+        self.lineEditSell.setStyleSheet(u"font: 700 24pt \"Segoe UI\";")
         self.lineEditSell.setFrame(False)
         self.lineEditSell.setDragEnabled(False)
         self.lineEditSell.setReadOnly(True)
@@ -298,7 +300,7 @@ class ListProductForm(object):
         self.clearButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.clearButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         icon6 = QIcon()
-        icon6.addFile(u"./assets/newicons/icons8-limpiar-48.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u"../assets/newicons/icons8-limpiar-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.clearButton.setIcon(icon6)
         self.clearButton.setIconSize(QSize(30, 30))
 
@@ -531,7 +533,6 @@ class ListProductForm(object):
         self.label_6.setText(QCoreApplication.translate("ListProductForm", u" ESCANER", None))
         self.pushButton.setText("")
         self.label_13.setText(QCoreApplication.translate("ListProductForm", u"   SALIR", None))
-        self.frame_2.setStyleSheet(QCoreApplication.translate("ListProductForm", u"font: 700 11pt \"Segoe UI\";", None))
         self.label_9.setText(QCoreApplication.translate("ListProductForm", u"Total:", None))
         self.sellButton.setText(QCoreApplication.translate("ListProductForm", u"VENDER", None))
         self.clearButton.setText(QCoreApplication.translate("ListProductForm", u"VACIAR", None))
