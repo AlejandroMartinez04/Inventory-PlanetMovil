@@ -26,23 +26,26 @@ def create_connection():
 #     except OperationalError as e:
 #         print("Error connecting to db: " + str(e))
 
-### conection for render postgrest
 
 
-# import psycopg2
+### conection for azure
+        
 # import pyodbc
-# from psycopg2 import OperationalError
+# server = 'dbplanetmovil.database.windows.net'
+# database = 'dbplanetmovil'
+# username = 'adminplanet'
+# password = 'diegomartinez24*'
+# driver= '{ODBC Driver 17 for SQL Server}'
 
 # def create_connection():
-#     try:
-#         server = 'planetmovilserversql.database.windows.net'
-#         database = 'bbdplanetmovil'
-#         username = 'adminsql'
-#         password = 'Di5970791'
-#         driver = '{ODBC Driver 17 for SQL Server}'
+#     with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
+#         with conn.cursor() as cursor:
+#             cursor.execute("SELECT TOP 3 name, collation_name FROM sys.databases")
+#             row = cursor.fetchone()
+#             while row:
+#                 print (str(row[0]) + " " + str(row[1]))
+#                 row = cursor.fetchone()
+#     return conn
 
-#         conn = pyodbc.connect(f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver}')
 
-#         return conn
-#     except OperationalError as e:
-#         print("Error connecting to db: " + str(e))
+

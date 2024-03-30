@@ -315,11 +315,6 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         cap.set(3, 640)
         cap.set(4, 480)
 
-        # with open('./credentials.txt') as f:
-        #     mydatalist = f.read().splitlines()
-
-        # print(mydatalist)
-
         scanning_enabled = True
         change_code_key = ord('c')
 

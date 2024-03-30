@@ -127,7 +127,7 @@ class ListProductFormEmployee(object):
         self.lineEditSell.setSizePolicy(sizePolicy)
         self.lineEditSell.setMaximumSize(QSize(150, 30))
         self.lineEditSell.setFocusPolicy(Qt.NoFocus)
-        self.lineEditSell.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
+        self.lineEditSell.setStyleSheet(u"font: 700 24pt \"Segoe UI\";")
         self.lineEditSell.setFrame(False)
         self.lineEditSell.setDragEnabled(False)
         self.lineEditSell.setReadOnly(True)

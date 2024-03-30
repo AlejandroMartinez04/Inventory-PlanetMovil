@@ -378,8 +378,8 @@ class ListProducWindows(QWidget, ListProductForm):
                 # print(mydata)
 
                 if mydata in mydatalist:
-                    myoutput = 'Autorizado'
-                    color = (0,255,0)
+                    myoutput = 'Autorizado ' + mydata
+                    color = (255,0,0)
                     reproducir_sonido()
                     datos = self.search_product_by_barcode_scanner(mydata)
                     qty_stock = datos[0]
@@ -394,7 +394,7 @@ class ListProducWindows(QWidget, ListProductForm):
                     else:
                         msg_boxes.warning_msg_box('Aviso!','No hay mas productos en stock')
                 else:
-                    myoutput = 'No autorizado'
+                    myoutput = 'No autorizado '+ mydata
                     color = (0,0,255)
 
                 pts = np.array([barcode.polygon], np.int32)
