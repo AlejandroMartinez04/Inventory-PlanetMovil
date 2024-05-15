@@ -130,6 +130,7 @@ class ListProducWindows(QWidget, ListProductForm):
             for(index_cell, cell) in enumerate(row):
                 self.ListProductTable.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
         self.records_qty()
+        self.lineEditSearch.clear()
 
     def table_config2(self):
         column_headers = ("Codigo","Nombre","Cantidad","Precio unitario","Precio neto")

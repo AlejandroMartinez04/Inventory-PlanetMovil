@@ -77,18 +77,18 @@ class EditProductWindow(QWidget, EditProductForm):
         priceOut_format = self.agregar_punto_miles(priceOut_without_format)
         provider = self.providerLineEdit.text()
 
-        # eliminar self.codigobarras para dejar original
-        data = [name, amount, priceInt_format, priceOut_format, provider, self.codigo_barras]
+        # eliminar self.codigobarras al final del array para dejar original
+        data = [name, amount, priceInt_format, priceOut_format, provider]
 
-        # if update_product(self.codigo_barras, data) and self.check_inputs():
-        #     msg_boxes.correct_msg_box('Correcto!','Producto actualizado con exito')
-        #     self.parent.refresh_table_from_child_win()
-        #     self.close()
-
-        if update_product(data) and self.check_inputs():
+        if update_product(self.codigo_barras, data) and self.check_inputs():
             msg_boxes.correct_msg_box('Correcto!','Producto actualizado con exito')
             self.parent.refresh_table_from_child_win()
             self.close()
+
+        # if update_product(data) and self.check_inputs():
+        #     msg_boxes.correct_msg_box('Correcto!','Producto actualizado con exito')
+        #     self.parent.refresh_table_from_child_win()
+        #     self.close()
 
     def agregar_punto_miles(self, valor):
         valor = int(valor)
