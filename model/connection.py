@@ -27,6 +27,3 @@ def create_connection():
 #         return conn
 #     except OperationalError as e:
 #         print("Error connecting to db: " + str(e))
-
-
-

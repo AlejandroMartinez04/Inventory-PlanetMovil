@@ -14,6 +14,21 @@ import numpy as np
 from pyzbar.pyzbar import decode
 from pyzbar import pyzbar
 import pygame
+import os
+
+from pathlib import Path
+# from reportlab.lib.styles import ParagraphStyle
+# from reportlab.platypus import SimpleDocTemplate, Paragraph, ParagraphAndImage
+# from reportlab.lib.units import inch
+# from reportlab.platypus import Image
+
+
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+
 
 class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
 
@@ -262,6 +277,131 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         total_format = self.agregar_punto_miles(total)
         return total_format
         
+
+    
+    def productos_factura(self):
+        productos = []
+        for row in range(self.ListSellTable.rowCount()):
+            item = self.ListSellTable.item(row, 0)
+            qty = self.ListSellTable.item(row, self.ListSellTable.columnCount() - 3)
+            qty = qty.text()
+            name = self.ListSellTable.item(row, self.ListSellTable.columnCount() - 4)
+            name = name.text()
+            price = self.ListSellTable.item(row, self.ListSellTable.columnCount() - 2)
+            price = price.text()
+            if item is not None:
+                producto = {
+                    'nombre': name,
+                    'cantidad': qty,
+                    'precio_unitario': price
+                }
+                productos.append(producto)
+        return productos
+    
+    def generar_consecutivo(self):
+        archivo_consecutivo = "consecutivo.txt"
+        if os.path.exists(archivo_consecutivo):
+            with open(archivo_consecutivo, "r") as archivo:
+                consecutivo = int(archivo.read())
+        else:
+            consecutivo = 1
+
+        consecutivo_str = str(consecutivo).zfill(4)
+        consecutivo += 1
+
+        with open(archivo_consecutivo, "w") as archivo:
+            archivo.write(str(consecutivo))
+        return consecutivo_str
+
+    def generar_factura_venta(self, tipo_pago, monto_total, productos_vendidos):
+
+        while True:
+
+            while True:
+                name = QInputDialog.getText(None, "Nombre del cliente", "Escribe el nombre:")
+                if name[0]: 
+                    break
+                msg_boxes.warning_msg_box('Aviso!', 'El nombre no puede ser vacío.')
+
+            while True:
+                document = QInputDialog.getText(None, "Documento del cliente", "Escribe el documento:")
+                if document[0]:  
+                    break
+                msg_boxes.warning_msg_box('Aviso!', 'El documento no puede ser vacío.')
+
+            break 
+
+        documentos_path = Path.home() / "Documents"
+        if not documentos_path.exists():
+            documentos_path = Path.home() / "Documentos"
+
+        facturas_path = documentos_path / "Facturas"
+        facturas_path.mkdir(parents=True, exist_ok=True)
+
+        fecha_actual = datetime.now()
+        fecha_actual_str = fecha_actual.strftime('%Y-%m-%d %I:%M:%S %p')
+
+        ancho_papel = 8 * cm
+        alto_papel = 20 * cm
+        
+        nro_consecutivo = self.generar_consecutivo()
+        factura_filename = f"factura_venta_{nro_consecutivo}.pdf"
+        factura_path = facturas_path / factura_filename
+        
+        print(f"Intentando crear factura en: {factura_path}")
+
+        pdf = SimpleDocTemplate(
+            str(factura_path),
+            pagesize=(ancho_papel, alto_papel),
+            rightMargin=0.5*cm,
+            leftMargin=0.5*cm,
+            topMargin=0*cm,
+            bottomMargin=0.5*cm
+        )
+
+        styles = getSampleStyleSheet()
+        estilo_titulo = ParagraphStyle('Titulo', fontSize=14, alignment=TA_CENTER, spaceAfter=0.2*cm)
+        estilo_texto = ParagraphStyle('Texto', fontSize=12, alignment=TA_LEFT, spaceAfter=0.1*cm)
+
+        logo_path = './assets/logo.png'
+        logo = Image(str(logo_path), width=3.5*cm, height=1*cm)
+        logo.hAlign = 'CENTER'
+
+        elementos = [
+            logo,
+            Paragraph("<b>Factura de Venta</b>", estilo_titulo),
+            Paragraph(f"Nro factura: {nro_consecutivo}", estilo_texto),
+            Paragraph(f"Fecha: {fecha_actual_str}", estilo_texto),
+            Paragraph(f"Nit: 1037651327-1", estilo_texto),
+            Paragraph("Direccion: Calle 48 # 04 06 Copacabana", estilo_texto),
+            Paragraph(f"Cliente: {name[0]}", estilo_texto),
+            Paragraph(f"Documento: {document[0]}", estilo_texto),
+            Spacer(1, 0.2*cm),
+            Paragraph("<b>Productos:</b>", estilo_texto),
+        ]
+
+        for producto in productos_vendidos:
+            elementos.append(Paragraph(f"{producto['nombre']}: {producto['cantidad']} x {producto['precio_unitario']}", estilo_texto))
+
+        elementos.extend([
+            Spacer(1, 0.2*cm),
+            Paragraph(f"<b>Total:</b> {monto_total}", estilo_texto),
+            Spacer(1, 0.2*cm),
+            Paragraph("¡Gracias por su compra!", estilo_titulo)
+        ])
+
+        try:
+            pdf.build(elementos)
+            print(f"Factura generada exitosamente en: {factura_path}")
+            if factura_path .exists():
+                print("El archivo de factura creado en la ubicación especificada.")
+                msg_boxes.correct_msg_box('Correcto!','Factura creada')
+            else:
+                print("Error: El archivo de factura no se creo en la ubicación especificada.")
+        except Exception as e:
+            print(f"Error al generar la factura: {str(e)}")
+
+        return str(factura_path)
    
     def do_sell(self):
         confirmacion = msg_boxes.warning_check_msg_box('Confirmar','Confirmar venta')
@@ -272,6 +412,8 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         ganancia_total = self.ganancia_neta()
         tipo_pago = 'Efectivo'
         detalle = str(self.historial_sells())
+        productos_vendidos = self.productos_factura()
+    
         data = (fecha_actual_str, tipo_pago, monto_total, ganancia_total, detalle)
         if monto_total > str(0):
             if confirmacion == QMessageBox.Yes:
@@ -279,6 +421,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
                 self.update_qty_product_form()
                 msg_boxes.correct_msg_box('Correcto!','Se realizó la venta')
                 self.clean_table_sells()
+                self.generar_factura_venta(self, monto_total, productos_vendidos)
         else :
             msg_boxes.warning_msg_box('Aviso!','No hay productos en el carrito')
 
