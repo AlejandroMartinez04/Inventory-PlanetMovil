@@ -70,6 +70,7 @@ class ListProductForm(object):
         self.lineEditSearch.setSizePolicy(sizePolicy2)
         self.lineEditSearch.setMaximumSize(QSize(300, 16777215))
         self.lineEditSearch.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
+        self.lineEditSearch.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
         self.horizontalLayout_2.addWidget(self.lineEditSearch)
 
@@ -300,7 +301,7 @@ class ListProductForm(object):
         self.clearButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.clearButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         icon6 = QIcon()
-        icon6.addFile(u"../assets/newicons/icons8-limpiar-48.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u"./assets/newicons/icons8-limpiar-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.clearButton.setIcon(icon6)
         self.clearButton.setIconSize(QSize(30, 30))
 

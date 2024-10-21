@@ -48,10 +48,11 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         self.sellButton.clicked.connect(self.do_sell)
         self.clearButton.clicked.connect(self.clean_table_sells)
         self.lineEditSearch.returnPressed.connect(self.searchButton.click)
-        self.escanearButton.clicked.connect(self.scanner)
         self.salirButton.clicked.connect(self.salir)
         
         self.sellButton.setDefault(True)
+
+        self.lineEditSearch.setFocus()
 
     def salir(self):
         respuesta = QMessageBox.question(self, "Salir", "¿Seguro que deseas salir?", QMessageBox.Yes | QMessageBox.No)
@@ -104,6 +105,9 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             for(index_cell, cell) in enumerate(row):
                 self.ListProductTable.setItem(index_row, index_cell, QTableWidgetItem(str(cell)))
         self.records_qty()
+        self.lineEditSearch.clear()
+        self.lineEditSearch.setFocus()
+        
 
     def table_config2(self):
         column_headers = ("Codigo","Nombre","Cantidad","Precio unitario","Precio neto")
@@ -129,10 +133,12 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             for index_cell, cell in enumerate(row):
                 item = QTableWidgetItem(str(cell))
                 self.ListSellTable.setItem(current_row_count + index_row, index_cell, item)
+    
 
     def search_product_by_name(self, Nombre):
         data = select_product_by_name(Nombre)
-        self.populate_table(data)     
+        self.populate_table(data)
+        self.lineEditSearch.clear()     
 
     def search_product_by_barcode_scanner(self, Codigo_barras):
         data = select_product_by_id(Codigo_barras)
@@ -141,6 +147,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
     def search_product_by_barcode(self, Codigo_barras):
         data = select_product_by_id(Codigo_barras)
         self.populate_table(data)
+        self.lineEditSearch.clear()
 
     def search_any(self):
         parameter = self.lineEditSearch.text()
@@ -155,6 +162,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             else:
                 self.search_product_by_name(parameter)
         self.lineEditSearch.clear()
+        self.lineEditSearch.setFocus()
                 
     def records_qty(self):
         qty_rows = str(self.ListProductTable.rowCount())
@@ -172,6 +180,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             self.ListSellTable.removeRow(selected_row)
             total = self.sum_last_column()
             self.lineEditSell.setText(total)
+
 
     def agregar_carrito_table_scanner(self, datos):
         data = 0
@@ -231,6 +240,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         self.ListProductTable.clearSelection()
         total = self.sum_last_column()
         self.lineEditSell.setText(total)
+        self.lineEditSearch.setFocus()
 
     def agregar_punto_miles(self, valor):
         valor = int(valor)
@@ -296,6 +306,8 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
                     'precio_unitario': price
                 }
                 productos.append(producto)
+
+        self.lineEditSearch.setFocus()
         return productos
     
     def generar_consecutivo(self):
@@ -341,7 +353,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         fecha_actual = datetime.now()
         fecha_actual_str = fecha_actual.strftime('%Y-%m-%d %I:%M:%S %p')
 
-        ancho_papel = 8 * cm
+        ancho_papel = 9 * cm
         alto_papel = 20 * cm
         
         nro_consecutivo = self.generar_consecutivo()
@@ -353,41 +365,55 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         pdf = SimpleDocTemplate(
             str(factura_path),
             pagesize=(ancho_papel, alto_papel),
-            rightMargin=0.5*cm,
-            leftMargin=0.5*cm,
+            rightMargin=0.1*cm,
+            leftMargin=0.1*cm,
             topMargin=0*cm,
-            bottomMargin=0.5*cm
+            bottomMargin=0*cm
         )
 
         styles = getSampleStyleSheet()
-        estilo_titulo = ParagraphStyle('Titulo', fontSize=14, alignment=TA_CENTER, spaceAfter=0.2*cm)
-        estilo_texto = ParagraphStyle('Texto', fontSize=12, alignment=TA_LEFT, spaceAfter=0.1*cm)
+        estilo_titulo = ParagraphStyle('Titulo', fontSize=18, alignment=TA_CENTER, spaceAfter=0.5*cm)
+        estilo_texto = ParagraphStyle('Texto', fontSize=16, alignment=TA_LEFT, spaceAfter=0.2*cm)
 
-        logo_path = './assets/logo.png'
-        logo = Image(str(logo_path), width=3.5*cm, height=1*cm)
-        logo.hAlign = 'CENTER'
 
         elementos = [
-            logo,
+            Paragraph("<b>VARIEDADES</b>", estilo_titulo),
+            Paragraph("<b>° LA 40 °</b>", estilo_titulo),
             Paragraph("<b>Factura de Venta</b>", estilo_titulo),
             Paragraph(f"Nro factura: {nro_consecutivo}", estilo_texto),
             Paragraph(f"Fecha: {fecha_actual_str}", estilo_texto),
-            Paragraph(f"Nit: 1037651327-1", estilo_texto),
-            Paragraph("Direccion: Calle 48 # 04 06 Copacabana", estilo_texto),
-            Paragraph(f"Cliente: {name[0]}", estilo_texto),
-            Paragraph(f"Documento: {document[0]}", estilo_texto),
+            Paragraph(f"Nit: 8409905-7", estilo_texto),
+            Paragraph(f"Cel: 313 399 9374", estilo_texto),
+            Paragraph("Direccion: Cll 38ASUR N 39 - 76", estilo_texto),
+            Paragraph(f"<b>Cliente:</b> {name[0]}", estilo_texto),
+            Paragraph(f"<b>Documento:</b> {document[0]}", estilo_texto),
             Spacer(1, 0.2*cm),
             Paragraph("<b>Productos:</b>", estilo_texto),
         ]
 
+        # Estilo para el nombre del producto
+        estilo_nombre_producto = ParagraphStyle('NombreProducto', fontSize=16, alignment=TA_LEFT, spaceAfter=0.2*cm)
+
+        # Estilo para la cantidad y precio
+        estilo_cantidad_precio = ParagraphStyle('CantidadPrecio', fontSize=14, alignment=TA_LEFT, spaceAfter=0.5*cm)
+
+        # Agregar productos a la factura
         for producto in productos_vendidos:
-            elementos.append(Paragraph(f"{producto['nombre']}: {producto['cantidad']} x {producto['precio_unitario']}", estilo_texto))
+            elementos.append(Spacer(1, 0.2*cm))
+            # Nombre del producto
+            nombre_producto = Paragraph(f"<b>{producto['nombre']}</b>", estilo_nombre_producto)
+            elementos.append(nombre_producto)
+            
+            # Cantidad y precio
+            cantidad_precio = Paragraph(f"Cantidad: {producto['cantidad']} - Precio: {producto['precio_unitario']}", estilo_cantidad_precio)
+            elementos.append(cantidad_precio)
 
         elementos.extend([
             Spacer(1, 0.2*cm),
             Paragraph(f"<b>Total:</b> {monto_total}", estilo_texto),
             Spacer(1, 0.2*cm),
-            Paragraph("¡Gracias por su compra!", estilo_titulo)
+            Paragraph("¡Gracias por su compra!", estilo_titulo),
+            Paragraph("Presente su factura en caso de reclamos.", estilo_titulo)
         ])
 
         try:
@@ -401,6 +427,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         except Exception as e:
             print(f"Error al generar la factura: {str(e)}")
 
+        self.lineEditSearch.setFocus()
         return str(factura_path)
    
     def do_sell(self):
@@ -424,6 +451,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
                 self.generar_factura_venta(self, monto_total, productos_vendidos)
         else :
             msg_boxes.warning_msg_box('Aviso!','No hay productos en el carrito')
+        
 
     def update_qty_product_form(self):
         for row in range(self.ListSellTable.rowCount()):
@@ -451,73 +479,3 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
                 product_count = 0
             
         return product_count
-                
-
-    def scanner(self):
-        cap = cv2.VideoCapture(0)
-        cap.set(3, 640)
-        cap.set(4, 480)
-
-        scanning_enabled = True
-        change_code_key = ord('c')
-
-        def reproducir_sonido():
-            pygame.init()
-            sonido = pygame.mixer.Sound('./assets/beep.wav')
-            sonido.play()
-
-        while True:
-            success, img = cap.read()
-
-            for barcode in decode(img):
-                mydata = barcode.data.decode('utf-8')
-
-
-                myoutput = 'Autorizado'
-                color = (0, 255, 0)
-                reproducir_sonido()
-                datos = self.search_product_by_barcode_scanner(mydata)  
-                qty_stock = datos[0]
-                qty_stock1 = qty_stock[1]
-
-                qty_sell = self.count_products(mydata)  
-
-                print(mydata, qty_sell)
-
-                if qty_stock1 > qty_sell:
-                    self.agregar_carrito_table_scanner(datos)  
-                else:
-                    msg_boxes.warning_msg_box('Aviso!', 'No hay más productos en stock')
-
-                # myoutput = 'No autorizado'
-                # color = (0, 0, 255)
-
-                pts = barcode.polygon
-                if len(pts) == 4:
-                    pts = np.array(pts, dtype=int)
-                    pts = pts.reshape((-1, 1, 2))
-                    cv2.polylines(img, [pts], True, color, 5)
-
-                pts2 = barcode.rect
-
-                cv2.putText(img, myoutput, (pts2[0], pts2[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 3)
-
-            cv2.imshow('Result', img)
-
-            key = cv2.waitKey(800)
-
-            if key == change_code_key:
-                scanning_enabled = not scanning_enabled
-
-            if key == 27:
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
-
-# Asegúrate de definir las funciones search_product_by_barcode_scanner, count_products y agregar_carrito_table_scanner
-
-
-
-
-        

@@ -22,6 +22,7 @@ class NewProductWindow(QWidget, NewProductForm):
 
 
     def check_input(self):
+        code = self.barcodeLineEdit.text()
         name = self.titleLineEdit.text()
         amount = self.amountSpinBox.value()
         priceOut = self.priceSaleLineEdit.text()
@@ -30,6 +31,9 @@ class NewProductWindow(QWidget, NewProductForm):
 
         errors_count = 0
 
+        if code == "":
+            msg_boxes.error_msg_box('Error!','El campo nombre es obligatorio')
+            errors_count += 1
         if name == "":
             msg_boxes.error_msg_box('Error!','El campo nombre es obligatorio')
             errors_count += 1
@@ -55,6 +59,7 @@ class NewProductWindow(QWidget, NewProductForm):
         archivo.close()
 
     def add_product(self):
+        code = self.barcodeLineEdit.text()
         name = self.titleLineEdit.text()
         amount = self.amountSpinBox.value()
         priceInt = self.priceSaleLineEdit_2.text()
@@ -65,7 +70,7 @@ class NewProductWindow(QWidget, NewProductForm):
         provider = self.providerLineEdit.text()
 
         if self.check_input():
-            data = (name, amount, priceInt_format, priceOut_format, profits, provider)
+            data = (code, name, amount, priceInt_format, priceOut_format, profits, provider)
             if insert_product(data):
                 self.clean_inputs()
                 self.parent.refresh_table_from_child_win()
@@ -77,6 +82,7 @@ class NewProductWindow(QWidget, NewProductForm):
         self.priceSaleLineEdit.clear()
         self.priceSaleLineEdit_2.clear()
         self.providerLineEdit.clear()
+        self.barcodeLineEdit.clear()
 
     def agregar_punto_miles(self, valor):
         valor = int(valor)

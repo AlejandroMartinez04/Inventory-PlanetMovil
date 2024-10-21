@@ -4,14 +4,13 @@ from .connection import create_connection
 
 def insert_product(data):
     conn = create_connection()
-    sql = """ INSERT INTO products (Nombre, Cantidad, Precio_ingreso, Precio, Ganancia, Proveedor) 
-    VALUES(?,?,?,?,?,?)"""
+    sql = """ INSERT INTO products (Id_producto, Nombre, Cantidad, Precio_ingreso, Precio, Ganancia, Proveedor) 
+    VALUES(?,?,?,?,?,?,?)"""
 
     try:
         cur = conn.cursor()
         cur.execute(sql, data)
         conn.commit()
-        # print("nuevo producto agregado")
         return True
     except Error as e:
         print("Error inserting product:" + str(e))
