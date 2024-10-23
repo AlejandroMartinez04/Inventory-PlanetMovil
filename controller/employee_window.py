@@ -8,6 +8,8 @@ from pys6_msgBoxes.input_box import input_msg_box
 
 import os
 import platform
+import win32api
+import win32print
 
 from pathlib import Path
 from reportlab.lib.units import cm
@@ -421,11 +423,13 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
     
     def imprimir_factura(self, factura_path):
         try:
-            if platform.system() == "Windows":
-                os.startfile(factura_path)
+            printer_name = win32print.GetDefaultPrinter()
+            
+            win32api.ShellExecute(0, "print", str(factura_path), None, ".", 0)
+            
+            print(f"Factura enviada a la impresora: {printer_name}")
         except Exception as e:
             print(f"Error al intentar imprimir la factura: {str(e)}")
-
 
     def do_sell(self):
         confirmacion = msg_boxes.warning_check_msg_box('Confirmar','Confirmar venta')

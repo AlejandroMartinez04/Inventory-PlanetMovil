@@ -32,7 +32,7 @@ class NewProductWindow(QWidget, NewProductForm):
         errors_count = 0
 
         if code == "":
-            msg_boxes.error_msg_box('Error!','El campo nombre es obligatorio')
+            msg_boxes.error_msg_box('Error!','El campo codigo de barras es obligatorio')
             errors_count += 1
         if name == "":
             msg_boxes.error_msg_box('Error!','El campo nombre es obligatorio')

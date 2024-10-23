@@ -38,6 +38,7 @@ class ListProducWindows(QWidget, ListProductForm):
         self.clearButton.clicked.connect(self.clean_table_sells)
         self.lineEditSearch.returnPressed.connect(self.searchButton.click)
         self.pushButton.clicked.connect(self.close)
+        self.escanearButton.clicked.connect(self.ver_facturas)
 
         self.sellButton.setDefault(True)
         self.lineEditSearch.setFocus()
@@ -459,8 +460,26 @@ class ListProducWindows(QWidget, ListProductForm):
         try:
             if platform.system() == "Windows":
                 os.startfile(factura_path)
+                os.stat(factura_path)
         except Exception as e:
             print(f"Error al intentar imprimir la factura: {str(e)}")
+        self.lineEditSearch.setFocus()
+
+    def ver_facturas(self):
+
+        documentos_path = Path.home() / "Documents"
+        if not documentos_path.exists():
+            documentos_path = Path.home() / "Documentos"
+
+        facturas_path = documentos_path / "Facturas"
+
+        try:
+            if platform.system() == "Windows":
+                os.startfile(facturas_path)
+        except Exception as e:
+            print(f"Error al abrir las facturas: {str(e)}")
+            
+        self.lineEditSearch.setFocus()
 
 
     def do_sell(self):

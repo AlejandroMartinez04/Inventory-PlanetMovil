@@ -356,7 +356,7 @@ QPushButton:pressed
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../assets/newicons/icons8-escáner-de-código-de-barras-48.png</normaloff>../assets/newicons/icons8-escáner-de-código-de-barras-48.png</iconset>
+           <normaloff>../assets/newicons/icons8-factura-48.png</normaloff>../assets/newicons/icons8-factura-48.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -387,7 +387,7 @@ QPushButton:pressed
           <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string> ESCANER</string>
+          <string>FACTURAS</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
