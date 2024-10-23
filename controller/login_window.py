@@ -65,9 +65,9 @@ class login_window(QWidget, FormLogin):
     def open_admin_view(self):
         from controller.main_window import ListProducWindows
         window = ListProducWindows()
-        window.show()
+        window.showMaximized()
 
     def open_employee_view(self):
         from controller.employee_window import ListProducWindowEmployee
         window = ListProducWindowEmployee()
-        window.show()
+        window.showMaximized()

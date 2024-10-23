@@ -1,7 +1,4 @@
-from typing import Optional
 from datetime import datetime
-import PySide6.QtCore
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView, QMainWindow
 from view.employee_window import ListProductFormEmployee
 from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product
@@ -9,26 +6,13 @@ from model.sells import select_all_sells, insert_sell, select_sell_by_date
 from pys6_msgBoxes import msg_boxes
 from pys6_msgBoxes.input_box import input_msg_box
 
-import cv2
-import numpy as np
-from pyzbar.pyzbar import decode
-from pyzbar import pyzbar
-import pygame
 import os
 
 from pathlib import Path
-# from reportlab.lib.styles import ParagraphStyle
-# from reportlab.platypus import SimpleDocTemplate, Paragraph, ParagraphAndImage
-# from reportlab.lib.units import inch
-# from reportlab.platypus import Image
-
-
-from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
-
 
 class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
 

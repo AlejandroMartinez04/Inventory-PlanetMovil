@@ -1,7 +1,4 @@
-from typing import Optional
 from datetime import datetime
-import PySide6.QtCore
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView, QMainWindow
 from view.main_windows import ListProductForm
 from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product, select_product_by_id_search
@@ -9,26 +6,14 @@ from model.sells import select_all_sells, insert_sell, select_sell_by_date
 from pys6_msgBoxes import msg_boxes
 from pys6_msgBoxes.input_box import input_msg_box
 
-import cv2
-import numpy as np
-from pyzbar.pyzbar import decode
-from pyzbar import pyzbar
-import pygame
 import os
+import platform
 
 from pathlib import Path
-# from reportlab.lib.styles import ParagraphStyle
-# from reportlab.platypus import SimpleDocTemplate, Paragraph, ParagraphAndImage
-# from reportlab.lib.units import inch
-# from reportlab.platypus import Image
-
-from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
-
-consecutivo = 1
 
 class ListProducWindows(QWidget, ListProductForm):
 
@@ -457,6 +442,11 @@ class ListProducWindows(QWidget, ListProductForm):
             if factura_path .exists():
                 print("El archivo de factura creado en la ubicación especificada.")
                 msg_boxes.correct_msg_box('Correcto!','Factura creada')
+
+                respuesta_imprimir = msg_boxes.warning_check_msg_box('Imprimir factura', '¿Desea imprimir la factura?')
+                if respuesta_imprimir == QMessageBox.Yes:
+                    self.imprimir_factura(factura_path)
+
             else:
                 print("Error: El archivo de factura no se creo en la ubicación especificada.")
         except Exception as e:
@@ -465,6 +455,14 @@ class ListProducWindows(QWidget, ListProductForm):
         self.lineEditSearch.setFocus()
         return str(factura_path)
     
+    def imprimir_factura(self, factura_path):
+        try:
+            if platform.system() == "Windows":
+                os.startfile(factura_path)
+        except Exception as e:
+            print(f"Error al intentar imprimir la factura: {str(e)}")
+
+
     def do_sell(self):
         confirmacion = msg_boxes.warning_check_msg_box('Confirmar','Confirmar venta')
 
