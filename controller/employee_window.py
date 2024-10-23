@@ -7,6 +7,7 @@ from pys6_msgBoxes import msg_boxes
 from pys6_msgBoxes.input_box import input_msg_box
 
 import os
+import platform
 
 from pathlib import Path
 from reportlab.lib.units import cm
@@ -309,6 +310,7 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             archivo.write(str(consecutivo))
         return consecutivo_str
 
+    
     def generar_factura_venta(self, tipo_pago, monto_total, productos_vendidos):
 
         while True:
@@ -359,7 +361,6 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
         estilo_titulo = ParagraphStyle('Titulo', fontSize=18, alignment=TA_CENTER, spaceAfter=0.5*cm)
         estilo_texto = ParagraphStyle('Texto', fontSize=16, alignment=TA_LEFT, spaceAfter=0.2*cm)
 
-
         elementos = [
             Paragraph("<b>VARIEDADES</b>", estilo_titulo),
             Paragraph("<b>° LA 40 °</b>", estilo_titulo),
@@ -375,7 +376,6 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             Paragraph("<b>Productos:</b>", estilo_texto),
         ]
 
-        # Estilo para el nombre del producto
         estilo_nombre_producto = ParagraphStyle('NombreProducto', fontSize=16, alignment=TA_LEFT, spaceAfter=0.2*cm)
 
         # Estilo para la cantidad y precio
@@ -406,14 +406,27 @@ class ListProducWindowEmployee(QWidget, ListProductFormEmployee):
             if factura_path .exists():
                 print("El archivo de factura creado en la ubicación especificada.")
                 msg_boxes.correct_msg_box('Correcto!','Factura creada')
+
+                respuesta_imprimir = msg_boxes.warning_check_msg_box('Imprimir factura', '¿Desea imprimir la factura?')
+                if respuesta_imprimir == QMessageBox.Yes:
+                    self.imprimir_factura(factura_path)
+
             else:
                 print("Error: El archivo de factura no se creo en la ubicación especificada.")
         except Exception as e:
             print(f"Error al generar la factura: {str(e)}")
-
+        
         self.lineEditSearch.setFocus()
         return str(factura_path)
-   
+    
+    def imprimir_factura(self, factura_path):
+        try:
+            if platform.system() == "Windows":
+                os.startfile(factura_path)
+        except Exception as e:
+            print(f"Error al intentar imprimir la factura: {str(e)}")
+
+
     def do_sell(self):
         confirmacion = msg_boxes.warning_check_msg_box('Confirmar','Confirmar venta')
 
