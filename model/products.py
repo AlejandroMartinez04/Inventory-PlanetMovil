@@ -80,7 +80,7 @@ def delete_product(Id_producto):
 
 def select_all_products():
     conn = create_connection()
-    sql = "SELECT Nombre, Cantidad, Precio_ingreso, Precio, Id_producto, Proveedor FROM products"
+    sql = "SELECT Nombre, Cantidad, Precio, Id_producto, Proveedor FROM products"
 
     try:
         cur = conn.cursor()
@@ -96,7 +96,7 @@ def select_all_products():
 
 def select_product_by_id(Id_producto):
     conn = create_connection()
-    sql = f"SELECT Nombre, Cantidad, Precio_ingreso, Precio, Id_producto, Ganancia FROM products WHERE Id_producto = {Id_producto}"
+    sql = f"SELECT Nombre, Cantidad, Precio, Id_producto, Ganancia FROM products WHERE Id_producto = {Id_producto}"
     try:
         cur = conn.cursor()
         cur.execute(sql)
@@ -110,6 +110,21 @@ def select_product_by_id(Id_producto):
             conn.close()
 
 def select_product_by_id_search(Id_producto):
+    conn = create_connection()
+    sql = f"SELECT Nombre, Cantidad, Precio, Id_producto, Proveedor FROM products WHERE Id_producto = {Id_producto}"
+    try:
+        cur = conn.cursor()
+        cur.execute(sql)
+        products = cur.fetchall()
+        return products
+    except Error as e:
+        print("Error selecting by Id_producto product:" + str(e))
+    finally:
+        if conn:
+            cur.close()
+            conn.close()
+
+def select_product_by_id_search_priceInt(Id_producto):
     conn = create_connection()
     sql = f"SELECT Nombre, Cantidad, Precio_ingreso, Precio, Id_producto, Proveedor FROM products WHERE Id_producto = {Id_producto}"
     try:
@@ -126,7 +141,7 @@ def select_product_by_id_search(Id_producto):
 
 def select_product_by_name(nombre):
     conn = create_connection()
-    sql = f"SELECT Nombre, Cantidad, Precio_ingreso, Precio, Id_producto, Proveedor FROM products WHERE Nombre LIKE '%{nombre}%'"
+    sql = f"SELECT Nombre, Cantidad, Precio, Id_producto, Proveedor FROM products WHERE Nombre LIKE '%{nombre}%'"
     try:
         cur = conn.cursor()
         cur.execute(sql)

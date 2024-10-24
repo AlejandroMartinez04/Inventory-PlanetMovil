@@ -79,7 +79,7 @@ class ListProducWindows(QWidget, ListProductForm):
         if selected_row:
             valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
             if valor_ingresado == '0827':
-                product_id = int(selected_row[4].text())
+                product_id = int(selected_row[3].text())
                 print(product_id)
                 window = EditProductWindow(self, product_id)
                 window.show()
@@ -115,10 +115,10 @@ class ListProducWindows(QWidget, ListProductForm):
 
 
     def table_config(self):
-        column_headers = ("Nombre", "Cantidad", "Precio ingreso", "Precio", "Codigo", "Proveedor")
+        column_headers = ("Nombre", "Cantidad", "Precio", "Codigo", "Proveedor")
         self.ListProductTable.setColumnCount(len(column_headers))
         self.ListProductTable.setHorizontalHeaderLabels(column_headers)
-        self.ListProductTable.setColumnWidth(3, 110)
+        # self.ListProductTable.setColumnWidth(3, 110)
         self.ListProductTable.setColumnWidth(1, 90)
         self.ListProductTable.setColumnWidth(2, 110)
         # self.ListProductTable.setColumnWidth(0, 217)
@@ -230,11 +230,13 @@ class ListProducWindows(QWidget, ListProductForm):
         selected_items = self.ListProductTable.selectedItems()
         if selected_items:
             row = selected_items[0].row()
-            product_id = int(self.ListProductTable.item(row, 4).text())
+            product_id = int(self.ListProductTable.item(row, 3).text())
             data = select_product_by_id(product_id)
+            print(data)
+            print(product_id)
             data_normal = data[0]
             name = data_normal[0]
-            qty__stock = int(data_normal[1])
+            qty__stock = int(data_normal[3])
 
             while True:
                 quantity = QInputDialog.getText(None, "Cantidad de productos", "Introduce la cantidad:")
@@ -245,7 +247,7 @@ class ListProducWindows(QWidget, ListProductForm):
                     msg_boxes.warning_msg_box('Aviso!','La cantidad es mayor que la cantidad existente. Inténtelo nuevamente.')
             
             qty = int(quantity[0])
-            price = str(data_normal[3])
+            price = str(data_normal[2])
             if len(price) > 3:
                 price_without_format = int(price.replace(",", ""))
                 code = product_id
@@ -306,7 +308,7 @@ class ListProducWindows(QWidget, ListProductForm):
                 product_id = item.text()
                 data = self.search_product_by_barcode_scanner(product_id)
                 data__normal = data[0]
-                profits = data__normal[5]
+                profits = data__normal[4]
                 temp_profits = int(profits) * qty
                 total += temp_profits
         total_format = self.agregar_punto_miles(total)
