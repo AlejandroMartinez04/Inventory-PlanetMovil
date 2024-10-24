@@ -61,6 +61,7 @@ class ListProducWindows(QWidget, ListProductForm):
         self.ListSellTable.clearContents()
         self.ListSellTable.setRowCount(0)
         self.lineEditSell.setText(None)
+        self.lineEditSearch.setFocus()
 
     def refresh_table_from_child_win(self):
         data = select_all_products()
@@ -80,7 +81,6 @@ class ListProducWindows(QWidget, ListProductForm):
             valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
             if valor_ingresado == '0827':
                 product_id = int(selected_row[3].text())
-                print(product_id)
                 window = EditProductWindow(self, product_id)
                 window.show()
             else:
@@ -206,6 +206,7 @@ class ListProducWindows(QWidget, ListProductForm):
             self.ListSellTable.removeRow(selected_row)
             total = self.sum_last_column()
             self.lineEditSell.setText(total)
+        self.lineEditSearch.setFocus()
 
     def agregar_carrito_table_scanner(self, datos):
         data = 0
@@ -232,37 +233,42 @@ class ListProducWindows(QWidget, ListProductForm):
             row = selected_items[0].row()
             product_id = int(self.ListProductTable.item(row, 3).text())
             data = select_product_by_id(product_id)
-            print(data)
-            print(product_id)
             data_normal = data[0]
             name = data_normal[0]
-            qty__stock = int(data_normal[3])
+            qty__stock = int(data_normal[1])
 
             while True:
-                quantity = QInputDialog.getText(None, "Cantidad de productos", "Introduce la cantidad:")
-                quantity_int = int(quantity[0])
-                if quantity_int <= qty__stock:
-                    break
+                quantity, ok = QInputDialog.getText(None, "Cantidad de productos", "Introduce la cantidad:")
+                
+                if ok:  
+                    if quantity.isdigit():  
+                        quantity_int = int(quantity)
+                        print(quantity_int)
+                        if quantity_int <= qty__stock:
+                            break
+                        else:
+                            msg_boxes.warning_msg_box('Aviso!','La cantidad es mayor que la cantidad existente. Inténtelo nuevamente.')
+                    else:
+                        QMessageBox.warning(None, "Entrada inválida", "Por favor, introduce un número entero.")
                 else:
-                    msg_boxes.warning_msg_box('Aviso!','La cantidad es mayor que la cantidad existente. Inténtelo nuevamente.')
+                    return None    
             
-            qty = int(quantity[0])
             price = str(data_normal[2])
             if len(price) > 3:
                 price_without_format = int(price.replace(",", ""))
                 code = product_id
-                price_neto = qty * price_without_format
+                price_neto = quantity_int * price_without_format
                 precio_neto_format = self.agregar_punto_miles(price_neto)
             else:
                 code = product_id
                 price = int(price)
-                price_neto = qty * price
+                price_neto = quantity_int * price
                 price_neto_str = str(price_neto)
                 if len(price_neto_str) > 3:
                     precio_neto_format = self.agregar_punto_miles(price_neto)
                 else:
                     precio_neto_format = price_neto
-            data_full = [(code, name, qty, price, precio_neto_format)]
+            data_full = [(code, name, quantity_int, price, precio_neto_format)]
             self.populate_table2(data_full)
         self.ListProductTable.clearSelection()
         total = self.sum_last_column()
@@ -505,6 +511,7 @@ class ListProducWindows(QWidget, ListProductForm):
                 self.generar_factura_venta(self, monto_total, productos_vendidos)
         else :
             msg_boxes.warning_msg_box('Aviso!','No hay productos en el carrito')
+        self.lineEditSearch.setFocus()
 
     def update_qty_product_form(self):
         for row in range(self.ListSellTable.rowCount()):
