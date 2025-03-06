@@ -6,7 +6,7 @@ Planet Móvil - Sistema de Inventario y Ventas
 
 Descripción del proyecto
 
-Planet Móvil es una aplicación de escritorio desarrollada en Python con PySide 6 que permite gestionar el inventario y las ventas de una tienda. Con este aplicativo, podrás agregar, eliminar y modificar productos en el inventario, realizar ventas escaneando códigos de barras mediante la cámara y visualizar las ganancias diarias.
+Planet Móvil es una aplicación de escritorio desarrollada en Python con PySide 6 que permite gestionar el inventario y las ventas de una tienda. Con este aplicativo, podrás agregar, eliminar y modificar productos en el inventario, realizar ventas escaneando códigos de barras y visualizar las ganancias diarias.
 
 Instalación
 
@@ -16,7 +16,7 @@ Requisitos del sistema
 
 Sistema operativo: Windows 10 o superior
 Recursos de hardware: Un procesador minimo core dos duo, de 2 nucleos, RAM 4GB, espacio en disco minimo de 1GB.
-Cámara: Cámara con minimo 2mpx de resolución
+Lector de codigo de barras.
 
 Guía del usuario
 
