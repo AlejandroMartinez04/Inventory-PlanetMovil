@@ -27,11 +27,11 @@ class login_window(QWidget, FormLogin):
             msg_boxes.error_msg_box('Aviso!','El campo usuario y contraseña son obligatorios')
         else:
             persona = self.select_person_by_id(username)
-            if persona is not None and len(persona) > 0:
-                user = persona[0]
-                pw = persona[1]
-                type = persona[2]
-                # print(persona)
+            print(persona)
+            if persona is not None:  # Verificamos que persona no sea None
+                user = persona.get("usuario")  # Accedemos al usuario
+                pw = persona.get("contrasenia")  # Accedemos a la contraseña
+                type = persona.get("tipo")  # Accedemos al tipo
 
                 if username == user and password == pw and type == 'empleado':
                     self.close()

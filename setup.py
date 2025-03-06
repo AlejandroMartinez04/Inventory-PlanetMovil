@@ -6,7 +6,7 @@ exe = Executable(script="app.py", base="win32GUI")
 
 setup(
     name="Inventario",
-    version="4.6",
+    version="5.0",
     description="Inventario y contabilidad",
     author="Diego Martinez",
     author_email='diegomartinez1101@gmail.com',

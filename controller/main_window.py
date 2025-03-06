@@ -2,7 +2,7 @@ from datetime import datetime
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QInputDialog, QHeaderView, QMainWindow
 from view.main_windows import ListProductForm
 from model.products import select_all_products, select_product_by_id, select_product_by_name, delete_product, update_qty_product, select_product_by_id_search
-from model.sells import select_all_sells, insert_sell, select_sell_by_date
+from model.sells import insert_sell
 from pys6_msgBoxes import msg_boxes
 from pys6_msgBoxes.input_box import input_msg_box
 
@@ -180,7 +180,8 @@ class ListProducWindows(QWidget, ListProductForm):
         parameter = self.lineEditSearch.text()
 
         if parameter == "":
-            msg_boxes.warning_msg_box('Aviso!','Debe escribir lo que desea buscar')
+            #msg_boxes.warning_msg_box('Aviso!','Debe escribir lo que desea buscar')
+            self.do_sell()
         else:
             if parameter.isdigit():
                 self.search_product_by_barcode(parameter)
@@ -358,22 +359,6 @@ class ListProducWindows(QWidget, ListProductForm):
     
     def generar_factura_venta(self, tipo_pago, monto_total, productos_vendidos):
 
-        while True:
-
-            while True:
-                name = QInputDialog.getText(None, "Nombre del cliente", "Escribe el nombre:")
-                if name[0]: 
-                    break
-                msg_boxes.warning_msg_box('Aviso!', 'El nombre no puede ser vacío.')
-
-            while True:
-                document = QInputDialog.getText(None, "Documento del cliente", "Escribe el documento:")
-                if document[0]:  
-                    break
-                msg_boxes.warning_msg_box('Aviso!', 'El documento no puede ser vacío.')
-
-            break 
-
         documentos_path = Path.home() / "Documents"
         if not documentos_path.exists():
             documentos_path = Path.home() / "Documentos"
@@ -415,8 +400,8 @@ class ListProducWindows(QWidget, ListProductForm):
             Paragraph(f"Nit: 8409905-7", estilo_texto),
             Paragraph(f"Cel: 313 399 9374", estilo_texto),
             Paragraph("Direccion: Cll 38ASUR N 39 - 76", estilo_texto),
-            Paragraph(f"<b>Cliente:</b> {name[0]}", estilo_texto),
-            Paragraph(f"<b>Documento:</b> {document[0]}", estilo_texto),
+            Paragraph(f"<b>Cliente:</b> Consumidor final", estilo_texto),
+            Paragraph(f"<b>Documento:</b> 2222222222", estilo_texto),
             Spacer(1, 0.2*cm),
             Paragraph("<b>Productos:</b>", estilo_texto),
         ]
@@ -450,7 +435,7 @@ class ListProducWindows(QWidget, ListProductForm):
             print(f"Factura generada exitosamente en: {factura_path}")
             if factura_path .exists():
                 print("El archivo de factura creado en la ubicación especificada.")
-                msg_boxes.correct_msg_box('Correcto!','Factura creada')
+                #msg_boxes.correct_msg_box('Correcto!','Factura creada')
 
                 respuesta_imprimir = msg_boxes.warning_check_msg_box('Imprimir factura', '¿Desea imprimir la factura?')
                 if respuesta_imprimir == QMessageBox.Yes:
