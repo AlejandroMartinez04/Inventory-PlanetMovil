@@ -1,9 +1,7 @@
-from typing import Optional
-import PySide6.QtCore
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import Qt
 from view.edit_product_window import EditProductForm
-from model.products import update_product, select_product_by_id_search_priceInt
+from model.products import update_product, select_product_by_id_search
 from pys6_msgBoxes import msg_boxes
 
 class EditProductWindow(QWidget, EditProductForm):
@@ -24,7 +22,7 @@ class EditProductWindow(QWidget, EditProductForm):
         self.providerLineEdit.returnPressed.connect(self.editProductButton.click)
 
     def populate_inputs(self):
-        data = select_product_by_id_search_priceInt(self.codigo_barras)
+        data = select_product_by_id_search(self.codigo_barras)
         data_normal = data[0]
         self.titleLineEdit.setText(str(data_normal[0]))
         self.amountSpinBox.setValue(int(data_normal[1]))

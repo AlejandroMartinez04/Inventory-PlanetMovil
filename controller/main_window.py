@@ -232,7 +232,7 @@ class ListProducWindows(QWidget, ListProductForm):
         selected_items = self.ListProductTable.selectedItems()
         if selected_items:
             row = selected_items[0].row()
-            product_id = int(self.ListProductTable.item(row, 3).text())
+            product_id = int(self.ListProductTable.item(row, 4).text())
             data = select_product_by_id(product_id)
             data_normal = data[0]
             name = data_normal[0]
