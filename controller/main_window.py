@@ -173,7 +173,7 @@ class ListProducWindows(QWidget, ListProductForm):
         return data
     
     def search_product_by_barcode(self, Codigo_barras):
-        data = select_product_by_id_search(Codigo_barras)
+        data = select_product_by_id(Codigo_barras)
         self.populate_table(data)
 
     def search_any(self):
@@ -209,34 +209,24 @@ class ListProducWindows(QWidget, ListProductForm):
             self.lineEditSell.setText(total)
         self.lineEditSearch.setFocus()
 
-    def agregar_carrito_table_scanner(self, datos):
-        data = 0
-        if data == 0:
-            data_normal = datos[0]
-            name = data_normal[0]
-            qty = 1
-            price = data_normal[3]
-            price_without_format = int(price.replace(",", ""))
-            code = data_normal[4]
-            price_neto = qty * price_without_format
-            precio_neto_format = self.agregar_punto_miles(price_neto)
-
-            data_full = [(code, name, qty, price, precio_neto_format)]
-            self.populate_table2(data_full)
-        self.ListProductTable.clearSelection()
-        total = self.sum_last_column()
-        self.lineEditSell.setText(total)
-
-
     def agregar_carrito_table_click(self):
         selected_items = self.ListProductTable.selectedItems()
         if selected_items:
             row = selected_items[0].row()
-            product_id = int(self.ListProductTable.item(row, 4).text())
-            data = select_product_by_id(product_id)
-            data_normal = data[0]
-            name = data_normal[0]
-            qty__stock = int(data_normal[1])
+            product_id = self.ListProductTable.item(row, 4).text()
+            print(product_id)
+            if isinstance(product_id, str):
+                product_id = int(self.ListProductTable.item(row, 3).text())
+                data = select_product_by_id(product_id)
+                data_normal = data[0]
+                name = data_normal[0]
+                qty__stock = int(data_normal[1])
+            else:
+                product_id = int(self.ListProductTable.item(row, 4).text())
+                data = select_product_by_id(product_id)
+                data_normal = data[0]
+                name = data_normal[0]
+                qty__stock = int(data_normal[1])
 
             while True:
                 quantity, ok = QInputDialog.getText(None, "Cantidad de productos", "Introduce la cantidad:")
@@ -419,7 +409,7 @@ class ListProducWindows(QWidget, ListProductForm):
             elementos.append(nombre_producto)
             
             # Cantidad y precio
-            cantidad_precio = Paragraph(f"Cantidad: {producto['cantidad']} - Precio: {producto['precio_unitario']}", estilo_cantidad_precio)
+            cantidad_precio = Paragraph(f"Cantidad: {producto['cantidad']} - Precio Unitario: {producto['precio_unitario']}", estilo_cantidad_precio)
             elementos.append(cantidad_precio)
 
         elementos.extend([
