@@ -18,10 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QPushButton, QSizePolicy, QSpinBox, QWidget)
 
-import os
-
-import sys
-
 class EditProductForm(object):
     def setupUi(self, editProductWindow):
         if not editProductWindow.objectName():
@@ -65,19 +61,8 @@ class EditProductForm(object):
         self.editProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.editProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.editProductButton.setText(u"GUARDAR")
-
-        def resource_path(relative_path):
-            """Obtener la ruta absoluta a un recurso, funciona para ejecutables y scripts."""
-            try:
-                # PyInstaller crea una carpeta temporal y almacena el path en _MEIPASS
-                base_path = sys._MEIPASS
-            except Exception:
-                base_path = os.path.abspath(".")
-            return os.path.join(base_path, relative_path)
-
-        icon1edit = resource_path("assets/newicons/icons8-enviar-48.png")
         icon = QIcon()
-        icon.addFile(icon1edit, QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"./assets/newicons/icons8-enviar-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.editProductButton.setIcon(icon)
         self.editProductButton.setFlat(False)
         self.cancelProductButton = QPushButton(editProductWindow)
@@ -86,10 +71,9 @@ class EditProductForm(object):
         self.cancelProductButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.cancelProductButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.cancelProductButton.setText(u"CANCELAR")
-        icon1 = resource_path("assets/newicons/icons8-cancelar-48.png")
-        icon = QIcon()
-        icon.addFile(icon1, QSize(), QIcon.Normal, QIcon.Off)
-        self.cancelProductButton.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"./assets/newicons/icons8-cancelar-48.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.cancelProductButton.setIcon(icon1)
         self.cancelProductButton.setFlat(False)
         self.priceSaleLineEdit_2 = QLineEdit(editProductWindow)
         self.priceSaleLineEdit_2.setObjectName(u"priceSaleLineEdit_2")

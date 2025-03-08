@@ -18,10 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QLineEdit,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 
-import os
-
-import sys
-
 class FormLogin(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -55,19 +51,8 @@ class FormLogin(object):
         self.pushButton = QPushButton(self.verticalLayoutWidget_2)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setEnabled(True)
-
-        def resource_path(relative_path):
-            """Obtener la ruta absoluta a un recurso, funciona para ejecutables y scripts."""
-            try:
-                # PyInstaller crea una carpeta temporal y almacena el path en _MEIPASS
-                base_path = sys._MEIPASS
-            except Exception:
-                base_path = os.path.abspath(".")
-            return os.path.join(base_path, relative_path)
-
-        icon_path = resource_path("assets/newicons/icons8-usuario-masculino-en-círculo-48.png")
         icon = QIcon()
-        icon.addFile(icon_path, QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"./assets/newicons/icons8-usuario-masculino-en-c\u00edrculo-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton.setIcon(icon)
         self.pushButton.setIconSize(QSize(100, 100))
         self.pushButton.setFlat(True)
@@ -88,10 +73,9 @@ class FormLogin(object):
         sizePolicy1.setHeightForWidth(self.cancelarBtn.sizePolicy().hasHeightForWidth())
         self.cancelarBtn.setSizePolicy(sizePolicy1)
         self.cancelarBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon1login = resource_path("assets/newicons/icons8-cancelar-48.png")
-        icon = QIcon()
-        icon.addFile(icon1login, QSize(), QIcon.Normal, QIcon.Off)
-        self.cancelarBtn.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"./assets/newicons/icons8-cancelar-48.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.cancelarBtn.setIcon(icon1)
 
         self.gridLayout.addWidget(self.cancelarBtn, 4, 2, 1, 1)
 
@@ -100,10 +84,9 @@ class FormLogin(object):
         sizePolicy1.setHeightForWidth(self.enviarBtn.sizePolicy().hasHeightForWidth())
         self.enviarBtn.setSizePolicy(sizePolicy1)
         self.enviarBtn.setCursor(QCursor(Qt.PointingHandCursor))
-        icon2login = resource_path("assets/newicons/icons8-enviar-48.png")
-        icon = QIcon()
-        icon.addFile(icon2login, QSize(), QIcon.Normal, QIcon.Off)
-        self.enviarBtn.setIcon(icon)
+        icon2 = QIcon()
+        icon2.addFile(u"./assets/newicons/icons8-enviar-48.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.enviarBtn.setIcon(icon2)
 
         self.gridLayout.addWidget(self.enviarBtn, 4, 3, 1, 1)
 

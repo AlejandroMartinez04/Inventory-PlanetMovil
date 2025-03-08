@@ -20,10 +20,6 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QLineEdit, QPushButton, QSizePolicy, QTableWidget,
     QTableWidgetItem, QVBoxLayout, QWidget)
 
-import os
-
-import sys
-
 class ListProductForm(object):
     def setupUi(self, ListProductForm):
         if not ListProductForm.objectName():
@@ -34,19 +30,8 @@ class ListProductForm(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ListProductForm.sizePolicy().hasHeightForWidth())
         ListProductForm.setSizePolicy(sizePolicy)
-
-        def resource_path(relative_path):
-            """Obtener la ruta absoluta a un recurso, funciona para ejecutables y scripts."""
-            try:
-                # PyInstaller crea una carpeta temporal y almacena el path en _MEIPASS
-                base_path = sys._MEIPASS
-            except Exception:
-                base_path = os.path.abspath(".")
-            return os.path.join(base_path, relative_path)
-        
-        iconMainwindows = resource_path("assets/newicons/icons8-tienda-online-48.png")
         icon = QIcon()
-        icon.addFile(iconMainwindows, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u"./assets/newicons/icons8-tienda-online-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         ListProductForm.setWindowIcon(icon)
         ListProductForm.setStyleSheet(u"QPushButton:hover\n"
 "{\n"
@@ -98,10 +83,9 @@ class ListProductForm(object):
         self.searchButton.setMinimumSize(QSize(0, 30))
         self.searchButton.setMaximumSize(QSize(30, 16777215))
         self.searchButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon1Mainwindows = resource_path("assets/newicons/icons8-b\u00fasqueda-50.png")
-        icon = QIcon()
-        icon.addFile(icon1Mainwindows, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.searchButton.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"./assets/newicons/icons8-b\u00fasqueda-50.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.searchButton.setIcon(icon1)
 
         self.horizontalLayout_2.addWidget(self.searchButton)
 
@@ -170,10 +154,9 @@ class ListProductForm(object):
         self.gananciasButton.setMaximumSize(QSize(150, 16777215))
         self.gananciasButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.gananciasButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon2main = resource_path("assets/newicons/Ganancias.png")
-        icon = QIcon()
-        icon.addFile(icon2main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.gananciasButton.setIcon(icon)
+        icon2 = QIcon()
+        icon2.addFile(u"./assets/newicons/Ganancias.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.gananciasButton.setIcon(icon2)
         self.gananciasButton.setIconSize(QSize(50, 50))
         self.gananciasButton.setAutoDefault(False)
         self.gananciasButton.setFlat(True)
@@ -206,10 +189,9 @@ class ListProductForm(object):
         self.escanearButton.setAutoFillBackground(False)
         self.escanearButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
         self.escanearButton.setInputMethodHints(Qt.ImhNone)
-        icon3main = resource_path("assets/newicons/icons8-factura-48.png")
-        icon = QIcon()
-        icon.addFile(icon3main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.escanearButton.setIcon(icon)
+        icon3 = QIcon()
+        icon3.addFile(u"./assets/newicons/icons8-factura-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.escanearButton.setIcon(icon3)
         self.escanearButton.setIconSize(QSize(50, 50))
         self.escanearButton.setAutoDefault(False)
         self.escanearButton.setFlat(True)
@@ -238,10 +220,9 @@ class ListProductForm(object):
         self.pushButton.setMinimumSize(QSize(0, 80))
         self.pushButton.setMaximumSize(QSize(150, 16777215))
         self.pushButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        icon4main = resource_path("assets/newicons/icons8-salida-48.png")
-        icon = QIcon()
-        icon.addFile(icon4main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.pushButton.setIcon(icon)
+        icon4 = QIcon()
+        icon4.addFile(u"./assets/newicons/icons8-salida-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.pushButton.setIcon(icon4)
         self.pushButton.setIconSize(QSize(50, 50))
         self.pushButton.setFlat(True)
 
@@ -312,10 +293,9 @@ class ListProductForm(object):
         self.sellButton.setMinimumSize(QSize(0, 40))
         self.sellButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.sellButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon5main = resource_path("assets/newicons/icons8-dinero-48.png")
-        icon = QIcon()
-        icon.addFile(icon5main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.sellButton.setIcon(icon)
+        icon5 = QIcon()
+        icon5.addFile(u"./assets/newicons/icons8-dinero-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.sellButton.setIcon(icon5)
         self.sellButton.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_5.addWidget(self.sellButton)
@@ -325,10 +305,9 @@ class ListProductForm(object):
         self.clearButton.setMinimumSize(QSize(0, 40))
         self.clearButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.clearButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon6main = resource_path("assets/newicons/icons8-limpiar-48.png")
-        icon = QIcon()
-        icon.addFile(icon6main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.clearButton.setIcon(icon)
+        icon6 = QIcon()
+        icon6.addFile(u"./assets/newicons/icons8-limpiar-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.clearButton.setIcon(icon6)
         self.clearButton.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_5.addWidget(self.clearButton)
@@ -361,10 +340,9 @@ class ListProductForm(object):
         self.addcartButton.setMinimumSize(QSize(0, 70))
         self.addcartButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.addcartButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon7main = resource_path("assets/newicons/icons8-agregar-a-carrito-de-compras-48.png")
-        icon = QIcon()
-        icon.addFile(icon7main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.addcartButton.setIcon(icon)
+        icon7 = QIcon()
+        icon7.addFile(u"./assets/newicons/icons8-agregar-a-carrito-de-compras-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.addcartButton.setIcon(icon7)
         self.addcartButton.setIconSize(QSize(40, 40))
 
         self.verticalLayout_2.addWidget(self.addcartButton)
@@ -374,10 +352,9 @@ class ListProductForm(object):
         self.removecartButton.setMinimumSize(QSize(0, 70))
         self.removecartButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.removecartButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon8main = resource_path("assets/newicons/icons8-vaciar-carro-48.png")
-        icon = QIcon()
-        icon.addFile(icon8main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.removecartButton.setIcon(icon)
+        icon8 = QIcon()
+        icon8.addFile(u"./assets/newicons/icons8-vaciar-carro-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.removecartButton.setIcon(icon8)
         self.removecartButton.setIconSize(QSize(40, 40))
 
         self.verticalLayout_2.addWidget(self.removecartButton)
@@ -400,10 +377,9 @@ class ListProductForm(object):
         self.inicioButton.setMaximumSize(QSize(150, 16777215))
         self.inicioButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.inicioButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon9main = resource_path("assets/newicons/icons8-libro-abierto-48.png")
-        icon = QIcon()
-        icon.addFile(icon9main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.inicioButton.setIcon(icon)
+        icon9 = QIcon()
+        icon9.addFile(u"./assets/newicons/icons8-libro-abierto-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.inicioButton.setIcon(icon9)
         self.inicioButton.setIconSize(QSize(50, 50))
         self.inicioButton.setAutoDefault(False)
         self.inicioButton.setFlat(True)
@@ -435,10 +411,9 @@ class ListProductForm(object):
         self.agregarButton.setMaximumSize(QSize(150, 16777215))
         self.agregarButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.agregarButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon10main = resource_path("assets/newicons/icons8-m\u00e1s-48.png")
-        icon = QIcon()
-        icon.addFile(icon10main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.agregarButton.setIcon(icon)
+        icon10 = QIcon()
+        icon10.addFile(u"./assets/newicons/icons8-m\u00e1s-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.agregarButton.setIcon(icon10)
         self.agregarButton.setIconSize(QSize(50, 50))
         self.agregarButton.setAutoDefault(False)
         self.agregarButton.setFlat(True)
@@ -470,10 +445,9 @@ class ListProductForm(object):
         self.eliminarButton.setMaximumSize(QSize(150, 16777215))
         self.eliminarButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.eliminarButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon11main = resource_path("assets/newicons/icons8-eliminar-papelera-48.png")
-        icon = QIcon()
-        icon.addFile(icon11main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.eliminarButton.setIcon(icon)
+        icon11 = QIcon()
+        icon11.addFile(u"./assets/newicons/icons8-eliminar-papelera-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.eliminarButton.setIcon(icon11)
         self.eliminarButton.setIconSize(QSize(50, 50))
         self.eliminarButton.setAutoDefault(False)
         self.eliminarButton.setFlat(True)
@@ -505,10 +479,9 @@ class ListProductForm(object):
         self.editarButton.setMaximumSize(QSize(150, 16777215))
         self.editarButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.editarButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-        icon12main = resource_path("assets/newicons/icons8-editar-48.png")
-        icon = QIcon()
-        icon.addFile(icon12main, QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.editarButton.setIcon(icon)
+        icon12 = QIcon()
+        icon12.addFile(u"./assets/newicons/icons8-editar-48.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.editarButton.setIcon(icon12)
         self.editarButton.setIconSize(QSize(50, 50))
         self.editarButton.setAutoDefault(False)
         self.editarButton.setFlat(True)

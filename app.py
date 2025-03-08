@@ -5,6 +5,6 @@ from controller.main_window import ListProducWindows
 if __name__ == "__main__":
     app = QApplication([])
     window = ListProducWindows()
-    window.show()
+    window.showMaximized()
 
     app.exec()

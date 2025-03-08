@@ -9,8 +9,8 @@ load_dotenv()
 TURSO_DB_URL = os.getenv("TURSO_DB_URL")
 TURSO_DB_AUTH_TOKEN = os.getenv("TURSO_DB_AUTH_TOKEN")
 
-# TURSO_DB_URL = "https://variedadesla40-alejandromp.turso.io"
-# TURSO_DB_AUTH_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Mzk2MzQ3OTksImlkIjoiZGUzMDI1NDAtYWRmOC00MjVjLTkyMjItZTg3NmUwZGIwNzJiIn0.jeZpOe2GiHE7qA_J4lfJMtU3NLYZCQJsLkqfE1ejOwKbEWKpcV6dbRmZLTc2jgw_d759VUPMgMWsAoZ2TjvFCA"
+TURSO_DB_URL = "https://variedadesla40-alejandromp.turso.io"
+TURSO_DB_AUTH_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Mzk2MzQ3OTksImlkIjoiZGUzMDI1NDAtYWRmOC00MjVjLTkyMjItZTg3NmUwZGIwNzJiIn0.jeZpOe2GiHE7qA_J4lfJMtU3NLYZCQJsLkqfE1ejOwKbEWKpcV6dbRmZLTc2jgw_d759VUPMgMWsAoZ2TjvFCA"
 
 if not TURSO_DB_URL or not TURSO_DB_AUTH_TOKEN:
     raise ValueError("Las variables de entorno TURSO_DB_URL y TURSO_DB_AUTH_TOKEN deben estar definidas")

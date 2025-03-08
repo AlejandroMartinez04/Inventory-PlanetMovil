@@ -20,10 +20,6 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCalendarWidget,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
-import os
-
-import sys
-
 class gananciastWindow(object):
     def setupUi(self, gananciastWindow):
         if not gananciastWindow.objectName():
@@ -96,19 +92,8 @@ class gananciastWindow(object):
         self.verGanDiaButton = QPushButton(gananciastWindow)
         self.verGanDiaButton.setObjectName(u"verGanDiaButton")
         self.verGanDiaButton.setStyleSheet(u"font: 700 11pt \"Segoe UI\";")
-
-        def resource_path(relative_path):
-            """Obtener la ruta absoluta a un recurso, funciona para ejecutables y scripts."""
-            try:
-                # PyInstaller crea una carpeta temporal y almacena el path en _MEIPASS
-                base_path = sys._MEIPASS
-            except Exception:
-                base_path = os.path.abspath(".")
-            return os.path.join(base_path, relative_path)
-        
-        icon1ganancia = resource_path("assets/newicons/icons8-b\u00fasqueda-48.png")
         icon = QIcon()
-        icon.addFile(icon1ganancia, QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"./assets/newicons/icons8-b\u00fasqueda-48.png", QSize(), QIcon.Normal, QIcon.Off)
         self.verGanDiaButton.setIcon(icon)
 
         self.verticalLayout.addWidget(self.verGanDiaButton)

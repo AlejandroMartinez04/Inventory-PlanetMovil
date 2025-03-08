@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QApplication, QDialog, QLabel, QLineEdit, QPushButton, QVBoxLayout, QDialogButtonBox
 from PySide6.QtGui import QIcon
+import os
+import sys
 
 class InputBox(QDialog):
     def __init__(self, title, label):
@@ -28,9 +30,22 @@ class InputBox(QDialog):
 
     def textValue(self):
         return self.line_edit.text()
+    
+
+def resource_path(relative_path):
+            """Obtener la ruta absoluta a un recurso, funciona para ejecutables y scripts."""
+            try:
+                # PyInstaller crea una carpeta temporal y almacena el path en _MEIPASS
+                base_path = sys._MEIPASS
+            except Exception:
+                base_path = os.path.abspath(".")
+            return os.path.join(base_path, relative_path)    
 
 def input_msg_box(title, label):
-    icon = QIcon('pys6_msgBoxes/icons/icons8-advert48 (1).png')
+
+    icon1product = resource_path("assets/newicons/icons8-enviar-48.png")
+
+    icon = QIcon(icon1product)
     msgbox = InputBox(title, label)
     msgbox.set_custom_icon(icon)
     result = msgbox.exec()

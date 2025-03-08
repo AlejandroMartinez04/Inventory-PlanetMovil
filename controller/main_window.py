@@ -77,15 +77,21 @@ class ListProducWindows(QWidget, ListProductForm):
     def open_edit_product_window(self): 
         from controller.edit_product_window import EditProductWindow
         selected_row = self.ListProductTable.selectedItems()
-        if selected_row:
-            valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
-            if valor_ingresado == '0827':
-                product_id = int(selected_row[3].text())
-                window = EditProductWindow(self, product_id)
-                window.show()
-            else:
-                msg_boxes.error_msg_box('Error', 'Contraseña no coincide')
-                print("no Ingreso Dato")
+
+        product_id = int(selected_row[3].text())
+        window = EditProductWindow(self, product_id)
+        window.show()
+
+        # if selected_row:
+        #     valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
+        #     if valor_ingresado == '0827':
+        #         product_id = int(selected_row[3].text())
+        #         window = EditProductWindow(self, product_id)
+        #         window.show()
+        #     else:
+        #         msg_boxes.error_msg_box('Error', 'Contraseña no coincide')
+        #         print("no Ingreso Dato")
+
         self.ListProductTable.clearSelection()
         self.lineEditSearch.setFocus()
                     
@@ -101,7 +107,7 @@ class ListProducWindows(QWidget, ListProductForm):
         if selected_row:
             valor_ingresado = input_msg_box("Ingresar contraseña", "Ingresa la contraseña:")
             if valor_ingresado == '0827':
-                product_id = int(selected_row[4].text())
+                product_id = int(selected_row[3].text())
                 row = selected_row[0].row()
                 if delete_product(product_id):
                     self.ListProductTable.removeRow(row)
