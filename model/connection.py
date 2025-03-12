@@ -1,22 +1,22 @@
 import os
 import requests
+import sys
 from dotenv import load_dotenv
 
-# Cargar variables de entorno
-load_dotenv()
+def resource_path(relative_path):
+    """Devuelve la ruta absoluta de un recurso, empaquetado o no."""
+    try:
+        base_path = sys._MEIPASS  # Cuando está empaquetado
+    except AttributeError:
+        base_path = os.path.abspath(".")  # En desarrollo
+    return os.path.join(base_path, relative_path)
 
-# Obtener la URL y el token de autenticación
-TURSO_DB_URL = os.getenv("TURSO_DB_URL")
+env_path = resource_path(".env")
+
+load_dotenv(dotenv_path=env_path)
+
 TURSO_DB_AUTH_TOKEN = os.getenv("TURSO_DB_AUTH_TOKEN")
-
-TURSO_DB_URL = "https://variedadesla40-alejandromp.turso.io"
-TURSO_DB_AUTH_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3Mzk2MzQ3OTksImlkIjoiZGUzMDI1NDAtYWRmOC00MjVjLTkyMjItZTg3NmUwZGIwNzJiIn0.jeZpOe2GiHE7qA_J4lfJMtU3NLYZCQJsLkqfE1ejOwKbEWKpcV6dbRmZLTc2jgw_d759VUPMgMWsAoZ2TjvFCA"
-
-if not TURSO_DB_URL or not TURSO_DB_AUTH_TOKEN:
-    raise ValueError("Las variables de entorno TURSO_DB_URL y TURSO_DB_AUTH_TOKEN deben estar definidas")
-
-def create_connection():
-     return TURSO_DB_URL, TURSO_DB_AUTH_TOKEN
+TURSO_DB_URL = os.getenv("TURSO_DB_URL")
 
 def query_turso(query):
     headers = {
